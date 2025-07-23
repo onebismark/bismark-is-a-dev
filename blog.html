@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lord Bismark | BioLink</title>
-    <meta name="description" content="Connect with Lord Bismark and read latest posts">
-    <meta property="og:title" content="Lord Bismarck | BioLink">
+    <meta name="description" content="Connect with Lord Bismarck and read latest posts">
+    <meta property="og:title" content="Lord Bismark | BioLink">
     <meta property="og:description" content="Connect with Lord Bismark and read latest posts">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:url" content="https://me.markmixstudios.com">
+    <meta name="twitter:card" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/bismark.webp">
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,15 +57,6 @@
             color: var(--text-light);
         }
 
-        .container, .profile, .tabs, .content-section {
-            opacity: 0;
-            animation: fadeIn 0.3s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
         .container {
             width: 100%;
             max-width: var(--max-width);
@@ -73,6 +64,7 @@
             flex-direction: column;
             align-items: center;
             gap: var(--gap);
+            padding: 0 1rem;
         }
 
         .profile {
@@ -82,6 +74,7 @@
             gap: 1rem;
             margin-bottom: 1rem;
             text-align: center;
+            width: 100%;
         }
 
         .profile-pic {
@@ -102,6 +95,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0.5rem 0;
+            text-align: center;
         }
 
         .bio {
@@ -109,6 +103,7 @@
             opacity: 0.9;
             max-width: 100%;
             line-height: 1.5;
+            text-align: center;
         }
 
         .tabs {
@@ -116,6 +111,7 @@
             width: 100%;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin: 1rem 0;
+            justify-content: center;
         }
 
         .tab {
@@ -124,6 +120,7 @@
             font-weight: 500;
             position: relative;
             transition: var(--transition);
+            text-align: center;
         }
 
         .tab.active {
@@ -146,7 +143,9 @@
         }
 
         .content-section.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .links {
@@ -169,7 +168,8 @@
             color: inherit;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
-            will-change: transform;
+            width: 100%;
+            max-width: 100%;
         }
 
         .link-card .icon {
@@ -187,6 +187,7 @@
         .link-card .text {
             flex-grow: 1;
             overflow: hidden;
+            min-width: 0;
         }
 
         .link-card .title {
@@ -218,6 +219,7 @@
             font-size: 0.8rem;
             opacity: 0.7;
             text-align: center;
+            width: 100%;
         }
 
         /* Print styles for blog sharing */
@@ -384,11 +386,21 @@
             const postModal = document.getElementById('post-modal');
             const tabs = document.querySelectorAll('.tab');
             
+            // Ensure content is properly centered
+            document.querySelector('.container').style.margin = '0 auto';
+            
             if (hash.startsWith('blog-post-')) {
-                // Show blog post directly when shared link is opened
-                const postId = hash.split('blog-post-')[1];
+                // Show blog section first
                 document.querySelector('.tab[data-tab="blog"]').click();
-                setTimeout(() => openPostModal(parseInt(postId)), 100);
+                
+                // Then open the modal after a slight delay to ensure DOM is ready
+                setTimeout(() => {
+                    const postId = hash.split('blog-post-')[1];
+                    openPostModal(parseInt(postId));
+                    
+                    // Scroll to top to ensure modal is fully visible
+                    window.scrollTo(0, 0);
+                }, 100);
             } else if (hash === 'blog') {
                 // Show blog section when #blog hash is present
                 document.querySelector('.tab[data-tab="blog"]').click();
@@ -396,7 +408,21 @@
         }
 
         // Initialize route handler
-        window.addEventListener('load', handleRoute);
+        window.addEventListener('load', function() {
+            // Ensure container is centered
+            document.querySelector('.container').style.margin = '0 auto';
+            
+            // Handle any hash in the URL
+            handleRoute();
+            
+            // Fix for mobile viewport
+            const setVh = () => {
+                document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+            };
+            setVh();
+            window.addEventListener('resize', setVh);
+        });
+        
         window.addEventListener('hashchange', handleRoute);
     </script>
 
@@ -613,6 +639,9 @@
                 if (!existingShareBtn) {
                     modalBody.appendChild(shareBtn);
                 }
+                
+                // Scroll to top to ensure modal is fully visible
+                window.scrollTo(0, 0);
             }
         }
 
@@ -775,6 +804,7 @@
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 transition: var(--transition);
                 cursor: pointer;
+                width: 100%;
             }
             
             .blog-image {
@@ -865,6 +895,7 @@
                 transform: translateY(20px);
                 transition: var(--transition);
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                margin: 0 auto;
             }
             
             .modal.active .modal-content {
@@ -987,6 +1018,19 @@
                 .modal-body {
                     padding: 1rem;
                 }
+                
+                .container {
+                    padding: 0 0.5rem;
+                }
+            }
+            
+            /* Mobile viewport fix */
+            :root {
+                --vh: 1vh;
+            }
+            
+            .modal {
+                height: calc(var(--vh, 1vh) * 100);
             }
         `;
         document.head.appendChild(style);
