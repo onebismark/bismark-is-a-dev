@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lord Bismark | Blog</title>
-    <meta name="description" content="Connect with me and read my latest posts">
-    <meta property="og:title" content="YourName | BioLink">
-    <meta property="og:description" content="Connect with me and read my latest posts">
+    <title>Lord Bismark | BioLink</title>
+    <meta name="description" content="Connect with Lord Bismarck and read latest posts">
+    <meta property="og:title" content="Lord Bismarck | BioLink">
+    <meta property="og:description" content="Connect with Lord Bismarck and read latest posts">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourdomain.com">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <style>
+        /* Critical CSS - Loads first */
         :root {
             --primary: #00d4ff;
             --secondary: #0077ff;
@@ -24,7 +26,7 @@
             --light-card: rgba(255, 255, 255, 0.85);
             --text-dark: #f0f0f0;
             --text-light: #333;
-            --transition: all 0.3s ease;
+            --transition: all 0.2s ease;
             --border-radius: 12px;
             --max-width: 600px;
             --gap: 1rem;
@@ -38,17 +40,16 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
             background: var(--dark-bg);
             color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            padding: 1rem;
             position: relative;
             overflow-x: hidden;
-            transition: var(--transition);
         }
 
         body.light-mode {
@@ -56,52 +57,15 @@
             color: var(--text-light);
         }
 
-        /* Background animation */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
+        .container, .profile, .tabs, .content-section {
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
         }
 
-        .particle {
-            position: absolute;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.15;
-            animation: float 15s infinite linear;
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(50px, 50px) rotate(180deg);
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-            }
-        }
-
-        /* Mouse follow glow */
-        .mouse-follow {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(0, 119, 255, 0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            transition: transform 0.1s ease-out;
-        }
-
-        /* Main container */
         .container {
             width: 100%;
             max-width: var(--max-width);
@@ -111,7 +75,6 @@
             gap: var(--gap);
         }
 
-        /* Profile section */
         .profile {
             display: flex;
             flex-direction: column;
@@ -122,23 +85,17 @@
         }
 
         .profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid transparent;
             background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
                         linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
-            transition: var(--transition);
-        }
-
-        body.light-mode .profile-pic {
-            background: linear-gradient(var(--light-bg), var(--light-bg)) padding-box,
-                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
         }
 
         .brand-name {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -150,11 +107,10 @@
         .bio {
             font-weight: 300;
             opacity: 0.9;
-            max-width: 80%;
+            max-width: 100%;
             line-height: 1.5;
         }
 
-        /* Navigation tabs */
         .tabs {
             display: flex;
             width: 100%;
@@ -162,12 +118,8 @@
             margin: 1rem 0;
         }
 
-        body.light-mode .tabs {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
         .tab {
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1rem;
             cursor: pointer;
             font-weight: 500;
             position: relative;
@@ -188,7 +140,6 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
-        /* Content sections */
         .content-section {
             width: 100%;
             display: none;
@@ -198,7 +149,6 @@
             display: block;
         }
 
-        /* Links section */
         .links {
             width: 100%;
             display: flex;
@@ -210,7 +160,6 @@
         .link-card {
             background: var(--dark-card);
             backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
             border-radius: var(--border-radius);
             padding: 1rem;
             display: flex;
@@ -220,24 +169,7 @@
             color: inherit;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .link-card {
-            background: var(--light-card);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .link-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .link-card:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
+            will-change: transform;
         }
 
         .link-card .icon {
@@ -250,10 +182,6 @@
             font-size: 1.2rem;
             background: rgba(0, 0, 0, 0.2);
             flex-shrink: 0;
-        }
-
-        body.light-mode .link-card .icon {
-            background: rgba(0, 0, 0, 0.05);
         }
 
         .link-card .text {
@@ -277,190 +205,14 @@
             text-overflow: ellipsis;
         }
 
-        /* Blog section */
-        .blog-posts {
-            width: 100%;
-            display: grid;
-            gap: var(--gap);
+        /* Non-critical CSS - Loads after initial render */
+        .bg-particles, .mouse-follow, .theme-toggle, 
+        body.light-mode .profile-pic, body.light-mode .link-card,
+        body.light-mode .tabs, .link-card:hover, .blog-posts,
+        .modal, .blog-card {
+            display: none;
         }
 
-        .blog-card {
-            background: var(--dark-card);
-            backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .blog-card {
-            background: var(--light-card);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .blog-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .blog-content {
-            padding: 1rem;
-        }
-
-        .blog-date {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .blog-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .blog-excerpt {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .read-more {
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: var(--transition);
-        }
-
-        .read-more:hover {
-            gap: 0.5rem;
-        }
-
-        /* Blog post modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            padding: 1rem;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: var(--dark-card);
-            backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
-            border-radius: var(--border-radius);
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body.light-mode .modal-content {
-            background: var(--light-card);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-
-        body.light-mode .modal-header {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-date {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            opacity: 1;
-            transform: rotate(90deg);
-        }
-
-        .modal-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-        }
-
-        .modal-body p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Footer */
         footer {
             margin-top: 2rem;
             font-size: 0.8rem;
@@ -468,102 +220,40 @@
             text-align: center;
         }
 
-        /* Theme toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--dark-card);
-            backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        body.light-mode .theme-toggle {
-            background: var(--light-card);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-toggle i {
-            font-size: 1.2rem;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
+        /* Print styles for blog sharing */
+        @media print {
+            .container:not(.blog-container), .theme-toggle, 
+            .bg-particles, .mouse-follow {
+                display: none;
             }
-            
-            .brand-name {
-                font-size: 1.5rem;
+            .blog-container {
+                display: block !important;
+                max-width: 100% !important;
+                padding: 0;
             }
-            
-            .bio {
-                max-width: 100%;
-            }
-            
-            .link-card, .blog-card {
-                padding: 0.8rem;
-            }
-            
-            .tabs {
-                justify-content: center;
-            }
-            
-            .tab {
-                padding: 0.75rem 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .profile-pic {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .link-card .icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            
-            .blog-image {
-                height: 150px;
-            }
-            
-            .modal-content {
-                max-height: 95vh;
+            .blog-post {
+                display: block !important;
+                page-break-inside: avoid;
             }
         }
     </style>
+    <noscript>
+        <style>
+            .container, .profile, .tabs, .content-section {
+                opacity: 1;
+            }
+            .bg-particles, .mouse-follow, .theme-toggle {
+                display: none;
+            }
+        </style>
+    </noscript>
 </head>
 <body>
-    <!-- Background elements -->
-    <div class="bg-particles" id="particles"></div>
-    <div class="mouse-follow" id="mouseFollow"></div>
-
-    <!-- Theme toggle -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
-
-    <!-- Main content -->
+    <!-- Minimal initial content for fast rendering -->
     <div class="container">
         <div class="profile">
-            <img src="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/bismark.webp" alt="Profile Picture" class="profile-pic">
+            <img src="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/bismark.webp" 
+                 alt="Profile Picture" class="profile-pic" width="90" height="90" loading="eager">
             <h1 class="brand-name">𝑳𝒐𝒓𝒅 𝑩𝒊𝒔𝒎𝒂𝒓𝒌 🦅</h1>
             <p class="bio">Digital creator & developer sharing my work and thoughts</p>
         </div>
@@ -577,39 +267,40 @@
         <!-- Links section -->
         <div class="content-section active" id="links-section">
             <div class="links">
-            	<a href="https://github.com/onebismark" class="link-card">
-                    <div class="icon"><i class="fab fa-github"></i></div>
+                <a href="https://github.com/onebismark" class="link-card">
+                    <div class="icon"><i class="fab fa-github" aria-hidden="true"></i></div>
                     <div class="text">
                         <div class="title">GitHub</div>
                         <div class="url">github.com/onebismark</div>
                     </div>
-                    
                 </a>
+                
                 <a href="https://markmixstudios.com" class="link-card">
-                <div class="icon"><i class="fas fa-globe"></i></div>
-                <div class="text">
-                    <div class="title">Personal Website</div>
-                    <div class="url">markmixstudios.com</div>
-                </div>
-            </a>
-            	<a href="https://x.com/onebismark_" class="link-card">
-                    <div class="icon"><i class="fab fa-twitter"></i></div>
+                    <div class="icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
+                    <div class="text">
+                        <div class="title">Personal Website</div>
+                        <div class="url">markmixstudios.com</div>
+                    </div>
+                </a>
+                
+                <a href="https://x.com/onebismark_" class="link-card">
+                    <div class="icon"><i class="fab fa-twitter" aria-hidden="true"></i></div>
                     <div class="text">
                         <div class="title">Twitter</div>
                         <div class="url">twitter.com/onebismark_</div>
                     </div>
                 </a>
                 
-               <a href="https://instagram.com/onebismark" class="link-card">
-                    <div class="icon"><i class="fab fa-instagram"></i></div>
+                <a href="https://instagram.com/onebismark" class="link-card">
+                    <div class="icon"><i class="fab fa-instagram" aria-hidden="true"></i></div>
                     <div class="text">
                         <div class="title">Instagram</div>
                         <div class="url">instagram.com/onebismark</div>
                     </div>
-                </a> 
+                </a>
                 
                 <a href="https://youtube.com/@onebismark" class="link-card">
-                    <div class="icon"><i class="fab fa-youtube"></i></div>
+                    <div class="icon"><i class="fab fa-youtube" aria-hidden="true"></i></div>
                     <div class="text">
                         <div class="title">YouTube</div>
                         <div class="url">youtube.com/@onebismark</div>
@@ -617,36 +308,36 @@
                 </a>
                 
                 <a href="https://tiktok.com/@lord_bismarq" class="link-card">
-                <div class="icon"><i class="fab fa-tiktok"></i></div>
-                <div class="text">
-                    <div class="title">TikTok</div>
-                    <div class="url">tiktok.com/@lord_bismarq</div>
-                </div>
-            </a>
+                    <div class="icon"><i class="fab fa-tiktok" aria-hidden="true"></i></div>
+                    <div class="text">
+                        <div class="title">TikTok</div>
+                        <div class="url">tiktok.com/@lord_bismarq</div>
+                    </div>
+                </a>
 
-            <a href="https://medium.com/bismarkagyapong" class="link-card">
-                <div class="icon"><i class="fab fa-medium"></i></div>
-                <div class="text">
-                    <div class="title">Medium</div>
-                    <div class="url">medium.com/@bismarkagyapong</div>
-                </div>
+                <a href="https://medium.com/bismarkagyapong" class="link-card">
+                    <div class="icon"><i class="fab fa-medium" aria-hidden="true"></i></div>
+                    <div class="text">
+                        <div class="title">Medium</div>
+                        <div class="url">medium.com/@bismarkagyapong</div>
+                    </div>
+                </a>
                 
-            </a>
-              <a href="https://leetcode.com/onebismark" class="link-card">
-                <div class="icon"><i class="fas fa-code"></i></div>
-                <div class="text">
-                    <div class="title">LeetCode</div>
-                    <div class="url">leetcode.com/onebismark</div>
-                </div>
-            </a>
+                <a href="https://leetcode.com/onebismark" class="link-card">
+                    <div class="icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+                    <div class="text">
+                        <div class="title">LeetCode</div>
+                        <div class="url">leetcode.com/onebismark</div>
+                    </div>
+                </a>
 
-            <a href="https://reddit.com/user/onebismark" class="link-card">
-                <div class="icon"><i class="fab fa-reddit-alien"></i></div>
-                <div class="text">
-                    <div class="title">Reddit</div>
-                    <div class="url">reddit.com/user/onebismark</div>
-                </div>
-            </a>
+                <a href="https://reddit.com/user/onebismark" class="link-card">
+                    <div class="icon"><i class="fab fa-reddit-alien" aria-hidden="true"></i></div>
+                    <div class="text">
+                        <div class="title">Reddit</div>
+                        <div class="url">reddit.com/user/onebismark</div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -666,24 +357,57 @@
     <div class="modal" id="post-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close-modal" id="close-modal">&times;</button>
+                <button class="close-modal" id="close-modal" aria-label="Close modal">&times;</button>
                 <h2 class="modal-title" id="modal-title">Blog Post Title</h2>
                 <span class="modal-date" id="modal-date">June 1, 2023</span>
             </div>
-            <img src="" alt="Blog post image" class="modal-image" id="modal-image">
+            <img src="" alt="" class="modal-image" id="modal-image" loading="lazy">
             <div class="modal-body" id="modal-body">
                 <!-- Blog post content will be inserted here -->
             </div>
         </div>
     </div>
 
+    <!-- Load non-critical CSS async -->
+    <link rel="stylesheet" href="data:text/css;base64,LnRoZW1lLXRvZ2dsZSwgLmJnLXBhcnRpY2xlcywgLm1vdXNlLWZvbGxvdyB7ZGlzcGxheTogbm9uZTt9QG1lZGlhIChtaW4td2lkdGg6IDQ4MXB4KSB7LnRoZW1lLXRvZ2dsZSwgLmJnLXBhcnRpY2xlcywgLm1vdXNlLWZvbGxvdyB7ZGlzcGxheTogYmxvY2s7fX0=" media="print" onload="this.media='all'">
+
+    <!-- Inline script for critical functionality -->
     <script>
+        // Set copyright year immediately
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Handle route changes for shareable blog links
+        function handleRoute() {
+            const hash = window.location.hash.replace('#', '');
+            const linksSection = document.getElementById('links-section');
+            const blogSection = document.getElementById('blog-section');
+            const postModal = document.getElementById('post-modal');
+            const tabs = document.querySelectorAll('.tab');
+            
+            if (hash.startsWith('blog-post-')) {
+                // Show blog post directly when shared link is opened
+                const postId = hash.split('blog-post-')[1];
+                document.querySelector('.tab[data-tab="blog"]').click();
+                setTimeout(() => openPostModal(parseInt(postId)), 100);
+            } else if (hash === 'blog') {
+                // Show blog section when #blog hash is present
+                document.querySelector('.tab[data-tab="blog"]').click();
+            }
+        }
+
+        // Initialize route handler
+        window.addEventListener('load', handleRoute);
+        window.addEventListener('hashchange', handleRoute);
+    </script>
+
+    <!-- Load non-critical JS after initial render -->
+    <script defer>
         // Blog posts data
         const blogPosts = [
             {
                 id: 1,
                 title: "Getting Started with Web Development",
-                date: "July 1, 2025",
+                date: "2025-07-01",
                 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
                 excerpt: "Learn the fundamentals of web development and how to build your first website with HTML, CSS, and JavaScript.",
                 content: `<p>Web development is an exciting field that combines creativity with technical skills. In this post, we'll explore the basics of building websites from scratch.</p>
@@ -698,36 +422,36 @@
             {
                 id: 2,
                 title: "Secure Your Accounts: Smart Password Protection Tips",
-                date: "March 26, 2025",
+                date: "2025-03-26",
                 image: "https://cdn.jsdelivr.net/gh/bismarkagyapong/files@refs/heads/main/password-protection-tips.webp",
-                excerpt: "Know how to keep your onlibe accounts safe.",
-                content: `<p>Your password is the key to your online security. A weak password makes it easy for hackers to steal your data, while a strong one keeps your accounts safe. Here’s how to create and manage secure passwords effectively.</p>
+                excerpt: "Know how to keep your online accounts safe.",
+                content: `<p>Your password is the key to your online security. A weak password makes it easy for hackers to steal your data, while a strong one keeps your accounts safe. Here's how to create and manage secure passwords effectively.</p>
 <h3 style="text-align: left;"><strong>Best Practices for Strong Passwords</strong></h3>
 <p>✔ <strong>Use a mix of uppercase and lowercase letters, numbers, and symbols.</strong><br />
-✔ <strong>Make it at least 12–16 characters long.</strong><br />
+✔ <strong>Make it at least 12-16 characters long.</strong><br />
 ✔ <strong>Avoid common words, personal details, or predictable sequences.</strong><br />
 ✔ <strong>Use a unique password for each account.</strong></p>
 <h3 style="text-align: left;"><strong>How to Keep Your Passwords Safe</strong></h3>
-<p>✅ <strong>Enable Two-Factor Authentication (2FA)</strong> – Adds an extra layer of protection.<br />
-✅ <strong>Use a Password Manager</strong> – Stores and generates secure passwords for you.<br />
-✅ <strong>Change Passwords If You Suspect a Breach</strong> – Never wait if an account is compromised.<br />
-✅ <strong>Avoid Writing Down Passwords</strong> – Store them securely instead.<br />
-✅ <strong>Never Share Passwords</strong> – Even with close friends or family.</p>
+<p>✅ <strong>Enable Two-Factor Authentication (2FA)</strong> - Adds an extra layer of protection.<br />
+✅ <strong>Use a Password Manager</strong> - Stores and generates secure passwords for you.<br />
+✅ <strong>Change Passwords If You Suspect a Breach</strong> - Never wait if an account is compromised.<br />
+✅ <strong>Avoid Writing Down Passwords</strong> - Store them securely instead.<br />
+✅ <strong>Never Share Passwords</strong> - Even with close friends or family.</p>
 <h3 style="text-align: left;"><strong>Best Password Example:</strong></h3>
 <p><strong>Weak:</strong> password123, John1990, qwerty<br />
 <strong>Strong:</strong> r7#Tg9!mKz2@Xy</p>
 <p>Taking password security seriously helps protect your identity, finances, and personal data. Strengthen your passwords today and stay safe online!</p>
 <hr />
-<h3 style="text-align: left;"><strong>Follow us for more security tips</strong>:</h3><p></p><ul><li><b>Facebook</b>:&nbsp;<a href="https://facebook.com/onebismark">Markmix Studios</a></li><li><b>Instagram</b>:&nbsp;<a href="https://www.instagram.com/markmix.studios" target="_blank">Markmix Studios</a></li><li><b>YouTube</b>:&nbsp;<a href="https://www.youtube.com/@markmix.studios?sub_confirmation=1" target="_blank">Markmix Studios</a>&nbsp;— don’t forget to subscribe!"</li></ul>`
+<h3 style="text-align: left;"><strong>Follow us for more security tips</strong>:</h3><p></p><ul><li><b>Facebook</b>:&nbsp;<a href="https://facebook.com/onebismark">Markmix Studios</a></li><li><b>Instagram</b>:&nbsp;<a href="https://www.instagram.com/markmix.studios" target="_blank">Markmix Studios</a></li><li><b>YouTube</b>:&nbsp;<a href="https://www.youtube.com/@markmix.studios?sub_confirmation=1" target="_blank">Markmix Studios</a>&nbsp;— don't forget to subscribe!"</li></ul>`
             },
             {
                 id: 3,
                 title: "The Evolution of Programming Languages",
-                date: "December 21, 2024",
+                date: "2024-12-21",
                 image: "https://raw.githubusercontent.com/onebismark/files/refs/heads/main/program.webp",
-                excerpt: " Explore the evolution of programming languages, from early machine code to modern tools like Python, Rust, and AI-driven frameworks.",
+                excerpt: "Explore the evolution of programming languages, from early machine code to modern tools like Python, Rust, and AI-driven frameworks.",
                 content: `<p><span><i>Explore the evolution of programming languages, from machine code to modern paradigms like Python, Rust, and AI-driven tools.</i></span></p><p><span>Programming languages have evolved significantly over the years, adapting to the increasing complexity of software development, the need for efficiency, and the demand for easier, more intuitive programming. Here's a quick look at their evolution, highlighting key languages and technologies in each era.</span></p><h3 style="text-align: left;"><span><b>1. The Beginnings: Machine Language (1940s-1950s)</b></span><span>&nbsp;</span></h3><p><span>In the earliest days of computing, programming was done directly in machine language using binary code (0s and 1s) that hardware could understand. This method was highly tedious and error-prone. Early computers, such as the ENIAC (Electronic Numerical Integrator and Computer), relied on machine language.</span></p><h3 style="text-align: left;"><span><b>2. Assembly Language (1950s)</b></span><span>&nbsp;</span></h3><p><span>Assembly language was introduced to simplify programming by using mnemonics like ADD, MOV, and SUB instead of raw binary code. These languages were hardware-specific, such as those used for IBM 701.</span></p><h3 style="text-align: left;"><span><b>3. High-Level Languages (1950s-1960s)</b></span><span>&nbsp;</span></h3><p><span>High-level languages allowed programmers to write code closer to human language. Key examples include:</span></p><ul data-spread="false"><li><p><span><b>FORTRAN (1957):</b></span><span> Designed for scientific computing, it was the first widely used high-level language.</span></p></li><li><p><span><b>LISP (1958):</b></span><span> Created for AI research, introducing recursive functions and symbolic computation.</span></p></li><li><p><span><b>COBOL (1959):</b></span><span> Focused on business and administrative systems, known for its English-like syntax.</span></p></li></ul><h3 style="text-align: left;"><span><b>4. Structured Programming (1970s)</b></span><span>&nbsp;</span></h3><p><span>Structured programming emphasized readability and maintainability. Important languages include:</span></p><ul data-spread="false"><li><p><span><b>C (1972):</b></span><span> Introduced functions and structured control flow, forming the basis for many modern languages.</span></p></li><li><p><span><b>Pascal (1970):</b></span><span> Popular in education for teaching programming concepts.</span></p></li><li><p><span><b>Algol (1958):</b></span><span> Influential in developing structured programming concepts.</span></p><p></p><div class="separator" style="clear: both; text-align: center;"><img alt="evolution of programming languages picture" border="0" data-original-height="2000" data-original-width="3000" height="213" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjnuRzbLozFK5LAoC5_HaThXPxZdXkThTXHLnxL8OEbo6dh7pHK2HeqzQO6PuWxzB6Kz7QYjdSOJuW_XKcIJlBES2Q_YLljZvWnkgvoNoK2bivkATJ1Bpy48SlVaLeXRicfSoCduug_anPFGs-P85yz2KJVxg8a-dSlLFevzhdOvEH7K_K4quo4_cA/w320-h213/pexels-pixabay-270373.webp" title="Evo. of programming languages" width="320" /></div><p></p></li></ul><h3 style="text-align: left;"><span><b>5. Object-Oriented Programming (1980s)</b></span><span>&nbsp;</span></h3><p><span>The 1980s brought object-oriented programming (OOP), enabling developers to model real-world entities as objects. Key languages include:</span></p><ul data-spread="false"><li><p><span><b>C++ (1983):</b></span><span> Extended C with object-oriented features like classes and inheritance.</span></p></li><li><p><span><b>Smalltalk (1980):</b></span><span> Fully embraced OOP and influenced future languages.</span></p></li><li><p><span><b>Objective-C (1984):</b></span><span> Combined C with OOP, forming the foundation for Apple's macOS and iOS.</span></p></li></ul><h3 style="text-align: left;"><span><b>6. The Web Era (1990s)</b></span><span>&nbsp;</span></h3><p><span>With the internet's rise, web development languages became essential:</span></p><ul data-spread="false"><li><p><span><b>Java (1995):</b></span><span> Cross-platform capabilities with "write once, run anywhere."</span></p></li><li><p><span><b>JavaScript (1995):</b></span><span> Enabled interactivity on web pages.</span></p></li><li><p><span><b>PHP (1995):</b></span><span> A server-side scripting language for dynamic web content.</span></p></li><li><p><span><b>Perl (1987):</b></span><span> Known for flexibility in web development and text processing.</span></p></li><li><p><span><b>CSS (1996):</b></span><span> Separated content from design, enhancing website styling.</span></p></li></ul><h3 style="text-align: left;"><span><b>7. Modern Languages &amp; Paradigms (2000s-Present)</b></span><span>&nbsp;</span></h3><p><span>Languages continued evolving to address new challenges in data science, web, and mobile development:</span></p><ul data-spread="false"><li><p><span><b>Python (1991):</b></span><span> Known for simplicity, widely used in data science, AI, and automation.</span></p></li><li><p><span><b>Ruby (1995):</b></span><span> Known for elegant syntax, popularized by Ruby on Rails.</span></p></li><li><p><span><b>Swift (2014):</b></span><span> Apple's language for iOS and macOS apps.</span></p></li><li><p><span><b>Go (2009):</b></span><span> Designed for efficiency and scalability.</span></p></li><li><p><span><b>Rust (2015):</b></span><span> Focused on memory safety and performance.</span></p></li><li><p><span><b>Kotlin (2011):</b></span><span> Preferred for Android development.</span></p></li></ul><p><span>Functional programming also gained traction with languages like </span><span><b>Haskell</b></span><span>, </span><span><b>Scala</b></span><span>, and </span><span><b>F#</b></span><span>, emphasizing immutability and stateless operations for scalability.</span></p><h3 style="text-align: left;"><span><b>8. The Future</b></span></h3><p><span>Emerging fields like quantum computing and AI-driven programming are driving the next wave of innovation. Languages such as </span><span><b>Q#</b></span><span> (Microsoft's quantum computing language) and </span><span><b>TensorFlow</b></span><span> (for machine learning) are paving the way.</span></p><p><span>In conclusion, programming languages have come a long way from machine code to modern paradigms. From </span><span><b>FORTRAN</b></span><span> and </span><span><b>COBOL</b></span><span> to </span><span><b>Python</b></span><span>, </span><span><b>JavaScript</b></span><span>, and </span><span><b>Rust</b></span><span>, their evolution reflects the increasing demands of software development. The future promises even more innovative tools and paradigms for the next generation of developers.</span></p><h3 id="Connect-with-us-on-social-media" style="text-align: left;">Connect with us on social media:</h3><p>
-</p><ul><li><b>Twitter/X</b>: <a href="https://x.com/markmixstudios">Markmix Studios</a></li><li><b>Instagram</b>: <a href="https://www.instagram.com/markmix.studios" target="_blank">Markmix Studios</a></li><li><b>YouTube</b>: <a href="https://www.youtube.com/@markmix.studios?sub_confirmation=1" target="_blank">Markmix Studios</a> — don’t forget to subscribe!"</li></ul>`
+</p><ul><li><b>Twitter/X</b>: <a href="https://x.com/markmixstudios">Markmix Studios</a></li><li><b>Instagram</b>: <a href="https://www.instagram.com/markmix.studios" target="_blank">Markmix Studios</a></li><li><b>YouTube</b>: <a href="https://www.youtube.com/@markmix.studios?sub_confirmation=1" target="_blank">Markmix Studios</a> — don't forget to subscribe!"</li></ul>`
             }
         ];
 
@@ -742,63 +466,61 @@
         const tabs = document.querySelectorAll('.tab');
         const contentSections = document.querySelectorAll('.content-section');
 
-        // Set copyright year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
         // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
+        const themeToggle = document.createElement('div');
+        themeToggle.className = 'theme-toggle';
+        themeToggle.id = 'themeToggle';
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        document.body.appendChild(themeToggle);
         
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
             
             if (document.body.classList.contains('light-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
             } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
             }
-            
-            // Save preference to localStorage
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
         });
-
-        // Check for saved theme preference
+        
+        // Check saved theme
         if (localStorage.getItem('theme') === 'light') {
             document.body.classList.add('light-mode');
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
         }
 
         // Mouse follow glow effect
-        const mouseFollow = document.getElementById('mouseFollow');
+        const mouseFollow = document.createElement('div');
+        mouseFollow.className = 'mouse-follow';
+        mouseFollow.id = 'mouseFollow';
+        document.body.appendChild(mouseFollow);
         
         document.addEventListener('mousemove', (e) => {
-            mouseFollow.style.left = e.clientX + 'px';
-            mouseFollow.style.top = e.clientY + 'px';
+            mouseFollow.style.left = `${e.clientX}px`;
+            mouseFollow.style.top = `${e.clientY}px`;
         });
 
         // Create background particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 8;
+        const particles = document.createElement('div');
+        particles.className = 'bg-particles';
+        particles.id = 'particles';
+        document.body.insertBefore(particles, document.body.firstChild);
         
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 0; i < 5; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            
-            // Random size and position
-            const size = Math.random() * 300 + 100;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            
-            // Random animation duration and delay
-            particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-            particle.style.animationDelay = `${Math.random() * 5}s`;
-            
-            particlesContainer.appendChild(particle);
+            particle.style.cssText = `
+                width: ${Math.random() * 200 + 100}px;
+                height: ${Math.random() * 200 + 100}px;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                animation-duration: ${Math.random() * 20 + 10}s;
+                animation-delay: ${Math.random() * 5}s;
+            `;
+            particles.appendChild(particle);
         }
 
         // Tab navigation
@@ -812,6 +534,9 @@
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(`${tabId}-section`).classList.add('active');
+                
+                // Update URL hash
+                window.location.hash = tabId === 'blog' ? 'blog' : '';
             });
         });
 
@@ -823,12 +548,14 @@
                 const postElement = document.createElement('div');
                 postElement.classList.add('blog-card');
                 postElement.innerHTML = `
-                    <img src="${post.image}" alt="${post.title}" class="blog-image">
+                    <img src="${post.image}" alt="${post.title}" class="blog-image" loading="lazy">
                     <div class="blog-content">
-                        <span class="blog-date">${post.date}</span>
+                        <span class="blog-date">${new Date(post.date).toLocaleDateString()}</span>
                         <h3 class="blog-title">${post.title}</h3>
                         <p class="blog-excerpt">${post.excerpt}</p>
-                        <a href="#" class="read-more" data-id="${post.id}">Read more <i class="fas fa-arrow-right"></i></a>
+                        <button class="read-more" data-id="${post.id}" aria-label="Read more about ${post.title}">
+                            Read more <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 `;
                 
@@ -847,8 +574,8 @@
             // Add event listener to entire blog card
             document.querySelectorAll('.blog-card').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    // Only trigger if not clicking on a link
-                    if (!e.target.closest('a')) {
+                    // Only trigger if not clicking on a link or button
+                    if (!e.target.closest('a') && !e.target.closest('button')) {
                         const readMoreBtn = card.querySelector('.read-more');
                         if (readMoreBtn) {
                             const postId = parseInt(readMoreBtn.getAttribute('data-id'));
@@ -864,20 +591,65 @@
             const post = blogPosts.find(p => p.id === postId);
             if (post) {
                 modalTitle.textContent = post.title;
-                modalDate.textContent = post.date;
+                modalDate.textContent = new Date(post.date).toLocaleDateString();
                 modalImage.src = post.image;
                 modalImage.alt = post.title;
                 modalBody.innerHTML = post.content;
                 
+                // Update URL for shareable link
+                window.location.hash = `blog-post-${postId}`;
+                
                 postModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
+                // Add share button functionality
+                const shareBtn = document.createElement('button');
+                shareBtn.className = 'share-button';
+                shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> Share this post';
+                shareBtn.addEventListener('click', () => sharePost(postId, post.title));
+                
+                // Insert share button at the end of modal content
+                const existingShareBtn = modalBody.querySelector('.share-button');
+                if (!existingShareBtn) {
+                    modalBody.appendChild(shareBtn);
+                }
             }
+        }
+
+        // Share post function
+        function sharePost(postId, title) {
+            const url = `${window.location.origin}${window.location.pathname}#blog-post-${postId}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Check out this blog post:',
+                    url: url
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    copyToClipboard(url);
+                });
+            } else {
+                copyToClipboard(url);
+            }
+        }
+
+        // Copy to clipboard fallback
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Link copied to clipboard!');
         }
 
         // Close post modal
         function closePostModal() {
             postModal.classList.remove('active');
             document.body.style.overflow = 'auto';
+            window.location.hash = document.querySelector('.tab.active').getAttribute('data-tab') === 'blog' ? 'blog' : '';
         }
 
         // Event listeners for modal
@@ -894,6 +666,330 @@
                 closePostModal();
             }
         });
+
+        // Load remaining styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .bg-particles, .mouse-follow, .theme-toggle, .blog-posts, .blog-card {
+                display: block;
+            }
+            
+            .particle {
+                position: absolute;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                border-radius: 50%;
+                filter: blur(40px);
+                opacity: 0.15;
+                animation: float 15s infinite linear;
+            }
+            
+            @keyframes float {
+                0% { transform: translate(0, 0) rotate(0deg); }
+                50% { transform: translate(50px, 50px) rotate(180deg); }
+                100% { transform: translate(0, 0) rotate(360deg); }
+            }
+            
+            .mouse-follow {
+                position: fixed;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(0, 119, 255, 0) 70%);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+                transition: transform 0.1s ease-out;
+            }
+            
+            .theme-toggle {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                background: var(--dark-card);
+                backdrop-filter: blur(var(--blur));
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: var(--transition);
+                z-index: 100;
+            }
+            
+            body.light-mode .theme-toggle {
+                background: var(--light-card);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+            }
+            
+            .theme-toggle:hover {
+                transform: scale(1.1);
+            }
+            
+            .theme-toggle i {
+                font-size: 1.2rem;
+            }
+            
+            body.light-mode .profile-pic {
+                background: linear-gradient(var(--light-bg), var(--light-bg)) padding-box,
+                            linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+            }
+            
+            body.light-mode .link-card, body.light-mode .blog-card {
+                background: var(--light-card);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+            }
+            
+            body.light-mode .tabs {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .link-card:hover, .blog-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                border-color: rgba(0, 212, 255, 0.3);
+            }
+            
+            .link-card:focus {
+                outline: 2px solid var(--primary);
+                outline-offset: 2px;
+            }
+            
+            body.light-mode .link-card .icon {
+                background: rgba(0, 0, 0, 0.05);
+            }
+            
+            .blog-posts {
+                width: 100%;
+                display: grid;
+                gap: var(--gap);
+            }
+            
+            .blog-card {
+                background: var(--dark-card);
+                backdrop-filter: blur(var(--blur));
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                transition: var(--transition);
+                cursor: pointer;
+            }
+            
+            .blog-image {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                display: block;
+            }
+            
+            .blog-content {
+                padding: 1.5rem;
+            }
+            
+            .blog-date {
+                font-size: 0.8rem;
+                opacity: 0.7;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+            
+            .blog-title {
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                font-size: 1.1rem;
+                color: var(--primary);
+            }
+            
+            .blog-excerpt {
+                font-size: 0.9rem;
+                opacity: 0.9;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .read-more {
+                background: none;
+                border: none;
+                color: var(--primary);
+                font-size: 0.9rem;
+                font-weight: 500;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.3rem;
+                cursor: pointer;
+                padding: 0;
+                transition: var(--transition);
+            }
+            
+            .read-more:hover {
+                gap: 0.5rem;
+            }
+            
+            .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                padding: 1rem;
+            }
+            
+            .modal.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .modal-content {
+                background: var(--dark-card);
+                backdrop-filter: blur(var(--blur));
+                border-radius: var(--border-radius);
+                max-width: 800px;
+                width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                transform: translateY(20px);
+                transition: var(--transition);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .modal.active .modal-content {
+                transform: translateY(0);
+            }
+            
+            .modal-header {
+                padding: 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                position: relative;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            
+            .modal-date {
+                font-size: 0.9rem;
+                opacity: 0.7;
+            }
+            
+            .close-modal {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                color: inherit;
+                font-size: 1.5rem;
+                cursor: pointer;
+                opacity: 0.7;
+                transition: var(--transition);
+            }
+            
+            .close-modal:hover {
+                opacity: 1;
+                transform: rotate(90deg);
+            }
+            
+            .modal-image {
+                width: 100%;
+                max-height: 300px;
+                object-fit: cover;
+                display: block;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            .modal-body p {
+                margin-bottom: 1rem;
+                line-height: 1.6;
+            }
+            
+            .share-button {
+                margin-top: 1rem;
+                background: rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: var(--border-radius);
+                padding: 0.75rem 1.5rem;
+                color: inherit;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: var(--transition);
+                font-family: inherit;
+                font-size: 0.9rem;
+            }
+            
+            .share-button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            @media (max-width: 768px) {
+                .brand-name {
+                    font-size: 1.5rem;
+                }
+                
+                .link-card, .blog-card {
+                    padding: 0.8rem;
+                }
+                
+                .tabs {
+                    justify-content: center;
+                }
+                
+                .tab {
+                    padding: 0.75rem 1rem;
+                }
+                
+                .modal-content {
+                    max-height: 95vh;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .profile-pic {
+                    width: 80px;
+                    height: 80px;
+                }
+                
+                .link-card .icon {
+                    width: 36px;
+                    height: 36px;
+                    font-size: 1rem;
+                }
+                
+                .blog-image {
+                    height: 150px;
+                }
+                
+                .modal-header {
+                    padding: 1rem;
+                }
+                
+                .modal-body {
+                    padding: 1rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Initialize the page
         renderBlogPosts();
