@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lord Bismark • Markmix Studios</title>
+  <meta name="description" content="Official links of Bismark Agyapong — Web Developer, Photographer, Tech Enthusiast & Founder of Markmix Studios Limited." />
+  <meta name="author" content="Bismark Agyapong (Lord Bismark)" />
+  <meta property="og:title" content="Lord Bismark • Markmix Studios" />
+  <meta property="og:description" content="Web Developer | Photographer | Tech Enthusiast | Markmix Studios Limited" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile-pic.webp" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+
+  <!-- Preconnect for font speed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Only load the exact weights needed -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome — only load what we use via CDN (subset via fa-kit would be faster, but CDN is fine) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
+
+  <!-- Preload avatar for LCP -->
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile-pic.webp" fetchpriority="high" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
+  <!-- Scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+
+  <!-- ── THEME TOGGLE ── -->
+  <button
+    id="theme-toggle"
+    class="theme-toggle"
+    aria-label="Toggle light/dark mode"
+    title="Toggle theme"
+  >
+    <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+      <!-- Moon SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+      <!-- Sun SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </span>
+  </button>
+
+  <main class="container">
+
+    <!-- ── PROFILE HEADER ── -->
+    <header class="profile">
+      <div class="avatar-ring">
+        <div class="avatar-spin"></div>
+        <img
+          src="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile-pic.webp"
+          alt="Lord Bismark"
+          class="avatar"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="110"
+          height="110"
+        />
+        <div class="avatar-status">
+          <span class="status-dot"></span>
+        </div>
+      </div>
+
+      <div class="profile-text">
+        <h1 class="profile-name">
+          <span class="name-line">Lord</span>
+          <span class="name-line accent">Bismark</span>
+          <span class="name-ankh" aria-hidden="true">☥</span>
+        </h1>
+        <p class="profile-handle">@onebismark</p>
+        <p class="profile-bio">Web Developer &nbsp;·&nbsp; Photographer &nbsp;·&nbsp; Tech Enthusiast</p>
+        <div class="profile-studio">
+          <span class="studio-dot"></span>
+          Markmix Studios Limited
+        </div>
+      </div>
+    </header>
+
+    <!-- ── LINKS ── -->
+    <nav class="links-grid" aria-label="Social and project links">
+
+      <a href="https://x.com/onebismark_" target="_blank" rel="noopener noreferrer" class="link-card" data-index="0">
+        <span class="link-icon"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="link-body">
+          <span class="link-label">Twitter / X</span>
+          <span class="link-url">twitter.com/onebismark</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://github.com/onebismark" target="_blank" rel="noopener noreferrer" class="link-card" data-index="1">
+        <span class="link-icon"><i class="fa-brands fa-github"></i></span>
+        <span class="link-body">
+          <span class="link-label">GitHub</span>
+          <span class="link-url">github.com/onebismark</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://me.markmixstudios.com/social" target="_blank" rel="noopener noreferrer" class="link-card" data-index="2">
+        <span class="link-icon"><i class="fa-solid fa-rocket"></i></span>
+        <span class="link-body">
+          <span class="link-label">Socials</span>
+          <span class="link-url">markmixstudios.com/socials</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://blog.markmixstudios.com" target="_blank" rel="noopener noreferrer" class="link-card" data-index="3">
+        <span class="link-icon"><i class="fa-solid fa-pen-nib"></i></span>
+        <span class="link-body">
+          <span class="link-label">Blog</span>
+          <span class="link-url">markmixstudios.com/blog</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://msl.markmixstudios.com" target="_blank" rel="noopener noreferrer" class="link-card link-card--featured" data-index="4">
+        <span class="link-icon"><i class="fa-solid fa-laptop-code"></i></span>
+        <span class="link-body">
+          <span class="link-label">Markmix Studios</span>
+          <span class="link-url">markmixstudios.com/msl</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://markmixstudios.com/tools" target="_blank" rel="noopener noreferrer" class="link-card" data-index="5">
+        <span class="link-icon"><i class="fa-solid fa-gear"></i></span>
+        <span class="link-body">
+          <span class="link-label">Web Projects</span>
+          <span class="link-url">markmixstudios.com/tools</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://bismark.is-a.dev" target="_blank" rel="noopener noreferrer" class="link-card" data-index="6">
+        <span class="link-icon"><i class="fa-solid fa-face-smile-beam"></i></span>
+        <span class="link-body">
+          <span class="link-label">Developer Profile</span>
+          <span class="link-url">bismark.is-a.dev</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://msl.markmixstudios.com" target="_blank" rel="noopener noreferrer" class="link-card" data-index="7">
+        <span class="link-icon"><i class="fa-solid fa-building"></i></span>
+        <span class="link-body">
+          <span class="link-label">Links</span>
+          <span class="link-url">msl.markmixstudios.com</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://markmixstudios.com/contact" target="_blank" rel="noopener noreferrer" class="link-card" data-index="8">
+        <span class="link-icon"><i class="fa-solid fa-envelope"></i></span>
+        <span class="link-body">
+          <span class="link-label">Contact</span>
+          <span class="link-url">markmixstudios.com/contact</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+      <a href="https://markmixstudios.com" target="_blank" rel="noopener noreferrer" class="link-card" data-index="9">
+        <span class="link-icon"><i class="fa-solid fa-globe"></i></span>
+        <span class="link-body">
+          <span class="link-label">Personal Website</span>
+          <span class="link-url">markmixstudios.com</span>
+        </span>
+        <span class="link-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        <span class="link-glow" aria-hidden="true"></span>
+      </a>
+
+    </nav>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <span class="footer-mark" aria-hidden="true">⬡</span> Markmix Studios Limited
+      </div>
+      <p class="footer-copy">© <span id="year"></span> All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about.html">About</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </nav>
+    </footer>
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
