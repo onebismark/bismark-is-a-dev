@@ -555,3 +555,30 @@ body {
   .link-card { transition: none; }
   .theme-toggle { transition: none; }
 }
+
+/* ════════════════════════════════
+   GLOBAL CURSOR & FOCUS OVERRIDE
+   (Applies across all HTML pages)
+════════════════════════════════ */
+html, body, *, *::before, *::after {
+  cursor: auto !important;
+}
+
+a, a *, button, button *, [role="button"], [role="button"] *, label[for], select, input[type="submit"] {
+  cursor: pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="search"], input[type="password"], textarea {
+  cursor: text !important;
+}
+
+#cursor, [class*="cursor"], [id*="cursor"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
