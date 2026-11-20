@@ -406,8 +406,7 @@ body {
   transition:
     border-color  0.25s,
     background    0.25s,
-    transform     0.2s,
-    box-shadow    0.25s;
+    transform     0.2s;
 
   opacity: 0;
   transform: translateY(20px);
@@ -420,17 +419,13 @@ body {
     opacity       0.5s ease,
     transform     0.5s ease,
     border-color  0.25s,
-    background    0.25s,
-    box-shadow    0.25s;
+    background    0.25s;
 }
 
 .link-card:hover {
   border-color: var(--border-h);
   background: var(--surface2);
-  transform: translateY(-2px) scale(1.008);
-  box-shadow:
-    0 8px 32px var(--gold-glow),
-    0 0 0 1px rgba(207, 170, 90, 0.08) inset;
+  transform: translateY(-2px);
 }
 
 /* Featured */
@@ -441,9 +436,6 @@ body {
 
 .link-card--featured:hover {
   border-color: rgba(207,170,90,0.6);
-  box-shadow:
-    0 10px 40px rgba(207, 170, 90, 0.18),
-    0 0 0 1px rgba(207, 170, 90, 0.12) inset;
 }
 
 /* Glow blob */
@@ -455,12 +447,12 @@ body {
   pointer-events: none;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.3s;
-  left: var(--gx, 50%);
-  top:  var(--gy, 50%);
+  transition: opacity 0.25s;
+  left: 70%;
+  top:  50%;
 }
 
-.link-card:hover .link-glow { opacity: 1; }
+.link-card:hover .link-glow { opacity: 0.65; }
 
 /* Icon */
 .link-icon {
