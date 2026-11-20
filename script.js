@@ -46,24 +46,6 @@
 
 
 /* ════════════════════════════════
-   GLOW FOLLOW  (RAF-throttled)
-════════════════════════════════ */
-(function initGlow() {
-  document.querySelectorAll('.link-card').forEach((card) => {
-    let rafGlow;
-    card.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(rafGlow);
-      rafGlow = requestAnimationFrame(() => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--gx', (e.clientX - rect.left) + 'px');
-        card.style.setProperty('--gy', (e.clientY - rect.top)  + 'px');
-      });
-    }, { passive: true });
-  });
-})();
-
-
-/* ════════════════════════════════
    STAGGERED CARD REVEAL
 ════════════════════════════════ */
 (function initReveal() {
@@ -88,30 +70,6 @@
       setTimeout(() => card.classList.add('visible'), 180 + i * 70);
     });
   }
-})();
-
-
-/* ════════════════════════════════
-   TILT  (RAF-throttled, desktop)
-════════════════════════════════ */
-(function initTilt() {
-  if (window.matchMedia('(hover: none)').matches) return;
-
-  document.querySelectorAll('.link-card').forEach((card) => {
-    let rafTilt;
-    card.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(rafTilt);
-      rafTilt = requestAnimationFrame(() => {
-        const rect = card.getBoundingClientRect();
-        const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
-        const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
-        card.style.transform =
-          `translateY(-2px) scale(1.008) rotateX(${dy * 3}deg) rotateY(${-dx * 4}deg)`;
-      });
-    }, { passive: true });
-
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
 })();
 
 
