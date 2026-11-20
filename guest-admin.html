@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  
+  <title>Admin Dashboard — Markmix Studios</title>
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome (for admin icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --font-head: 'Syne', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --bg: #09090e;
+      --surface: #0f0f17;
+      --surface2: #161621;
+      --border: rgba(255,255,255,0.07);
+      --gold: #cfaa5a;
+      --gold-soft: rgba(207,170,90,0.12);
+      --text: #edeae2;
+      --text-secondary: #7e7a8c;
+      --danger: #ef4444;
+      --success: #4ade80;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+    }
+    
+    [data-theme="light"] {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --surface2: #ede9e1;
+      --border: rgba(0,0,0,0.08);
+      --text: #1c1a16;
+      --text-secondary: #6b6155;
+    }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-head);
+      min-height: 100vh;
+    }
+    
+    /* Admin Layout */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: transform 0.3s;
+    }
+    
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .sidebar-logo {
+      font-size: 2rem;
+      color: var(--gold);
+    }
+    
+    .sidebar-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+    
+    .sidebar-nav {
+      padding: 1rem 0;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    
+    .nav-item:hover,
+    .nav-item.active {
+      background: var(--gold-soft);
+      color: var(--gold);
+      border-left: 3px solid var(--gold);
+    }
+    
+    .nav-item i {
+      width: 20px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 1.5rem;
+    }
+    
+    /* Header */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .header-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .theme-toggle-admin {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .logout-btn {
+      background: var(--danger);
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 0.3rem;
+    }
+    
+    /* Tables */
+    .table-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    td {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+    }
+    
+    /* Status Badges */
+    .status {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+    }
+    
+    .status-pending { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+    .status-approved { background: rgba(74, 222, 128, 0.2); color: var(--success); }
+    .status-published { background: rgba(74, 222, 128, 0.2); color: var(--success); }
+    .status-rejected { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    .status-draft { background: rgba(107, 114, 128, 0.2); color: #6b7280; }
+    
+    /* Buttons */
+    .btn-sm {
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      cursor: pointer;
+      margin: 0.2rem;
+    }
+    
+    .btn-success { background: var(--success); color: #000; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-warning { background: var(--warning); color: #000; }
+    .btn-info { background: var(--info); color: white; }
+    .btn-gold { background: var(--gold); color: var(--bg); }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .modal-close {
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-family: var(--font-head);
+      color: var(--text);
+    }
+    
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    /* Section visibility */
+    .section {
+      display: none;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        z-index: 100;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 101;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.5rem;
+        cursor: pointer;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .menu-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">⬡</div>
+      <div class="sidebar-title">Markmix Studios</div>
+      <div style="font-size: 0.7rem; font-family: monospace; color: var(--text-secondary);">Admin Dashboard</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-section="dashboard">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </div>
+      <div class="nav-item" data-section="submissions">
+        <i class="fas fa-inbox"></i> Guest Submissions
+        <span id="pendingCount" style="margin-left: auto; background: var(--danger); padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.7rem;">0</span>
+      </div>
+      <div class="nav-item" data-section="posts">
+        <i class="fas fa-newspaper"></i> Blog Posts
+      </div>
+      <div class="nav-item" data-section="pages">
+        <i class="fas fa-file-alt"></i> Pages
+      </div>
+      <div class="nav-item" data-section="settings">
+        <i class="fas fa-cog"></i> Settings
+      </div>
+      <div class="nav-item" data-section="analytics">
+        <i class="fas fa-chart-bar"></i> Analytics
+      </div>
+      <div class="nav-item" data-section="backup">
+        <i class="fas fa-database"></i> Backup
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="admin-header">
+      <h1 class="header-title" id="currentSection">Dashboard</h1>
+      <div class="header-actions">
+        <button class="theme-toggle-admin" id="themeToggleAdmin">🌙</button>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalSubmissions">0</div>
+          <div class="stat-label">Total Submissions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="pendingSubmissions">0</div>
+          <div class="stat-label">Pending Review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalPosts">0</div>
+          <div class="stat-label">Blog Posts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalPages">0</div>
+          <div class="stat-label">Pages</div>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <h3 style="padding: 1rem; margin: 0; border-bottom: 1px solid var(--border);">Recent Submissions</h3>
+        <div id="recentSubmissions"></div>
+      </div>
+    </div>
+
+    <!-- Submissions Section -->
+    <div id="submissions-section" class="section">
+      <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+        <button class="btn-sm btn-info" id="filterAll">All</button>
+        <button class="btn-sm btn-warning" id="filterPending">Pending</button>
+        <button class="btn-sm btn-success" id="filterApproved">Approved</button>
+        <button class="btn-sm btn-danger" id="filterRejected">Rejected</button>
+      </div>
+      <div class="table-container">
+        <table id="submissionsTable">
+          <thead>
+            <tr><th>Date</th><th>Author</th><th>Title</th><th>Category</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="submissionsList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Blog Posts Section -->
+    <div id="posts-section" class="section">
+      <button class="btn-sm btn-gold" id="newPostBtn" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Post</button>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="postsList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pages Section -->
+    <div id="pages-section" class="section">
+      <button class="btn-sm btn-gold" id="newPageBtn" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Page</button>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Page Title</th><th>Slug</th><th>Last Modified</th><th>Actions</th></tr></thead>
+          <tbody id="pagesList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settings-section" class="section">
+      <div class="table-container" style="padding: 1.5rem;">
+        <h3 style="margin-bottom: 1rem;">Site Settings</h3>
+        <div class="form-group">
+          <label class="form-label">Site Title</label>
+          <input type="text" id="siteTitle" class="form-input" value="Lord Bismark • Markmix Studios">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Site Description</label>
+          <input type="text" id="siteDesc" class="form-input" value="Web Developer, Photographer, Tech Enthusiast">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Admin Email (for notifications)</label>
+          <input type="email" id="adminEmail" class="form-input" value="admin@markmixstudios.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Default Theme</label>
+          <select id="defaultTheme" class="form-select">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+        <button class="btn-sm btn-gold" id="saveSettingsBtn">Save Settings</button>
+      </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics-section" class="section">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value" id="monthlyViews">0</div><div class="stat-label">Monthly Views</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalVisitors">0</div><div class="stat-label">Total Visitors</div></div>
+        <div class="stat-card"><div class="stat-value" id="avgTime">0</div><div class="stat-label">Avg Time (min)</div></div>
+        <div class="stat-card"><div class="stat-value" id="bounceRate">0%</div><div class="stat-label">Bounce Rate</div></div>
+      </div>
+      <div class="table-container" style="padding: 1rem; text-align: center; color: var(--text-secondary);">
+        <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+        <p>Analytics data would be populated from Google Analytics or your tracking service.</p>
+        <p style="font-size: 0.75rem;">For demo purposes, showing placeholder data.</p>
+      </div>
+    </div>
+
+    <!-- Backup Section -->
+    <div id="backup-section" class="section">
+      <div class="table-container" style="padding: 1.5rem;">
+        <h3 style="margin-bottom: 1rem;">Data Backup</h3>
+        <p style="margin-bottom: 1rem; color: var(--text-secondary);">Export all your data for safekeeping.</p>
+        <button class="btn-sm btn-gold" id="exportDataBtn"><i class="fas fa-download"></i> Export All Data (JSON)</button>
+        <button class="btn-sm btn-warning" id="importDataBtn" style="margin-left: 0.5rem;"><i class="fas fa-upload"></i> Import Data</button>
+        <input type="file" id="importFile" style="display: none;" accept=".json">
+        <hr style="margin: 1.5rem 0; border-color: var(--border);">
+        <h3 style="margin-bottom: 1rem;">Danger Zone</h3>
+        <button class="btn-sm btn-danger" id="clearAllDataBtn" onclick="confirmClearAll()"><i class="fas fa-trash"></i> Delete All Data</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- View Submission Modal -->
+<div id="viewModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Submission Details</h3>
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  let submissions = [];
+  let blogPosts = [];
+  let pages = [];
+  let settings = {};
+  
+  function loadData() {
+    submissions = JSON.parse(localStorage.getItem('guestSubmissions') || '[]');
+    blogPosts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+    pages = JSON.parse(localStorage.getItem('pages') || '[]');
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{"siteTitle":"Lord Bismark • Markmix Studios","siteDesc":"Web Developer, Photographer, Tech Enthusiast","adminEmail":"admin@markmixstudios.com","defaultTheme":"dark"}');
+    
+    if (!localStorage.getItem('analytics')) {
+      localStorage.setItem('analytics', JSON.stringify({
+        monthlyViews: 12450,
+        totalVisitors: 8750,
+        avgTime: 4.2,
+        bounceRate: 38
+      }));
+    }
+  }
+  
+  function saveSubmissions() { localStorage.setItem('guestSubmissions', JSON.stringify(submissions)); }
+  function saveBlogPosts() { localStorage.setItem('blogPosts', JSON.stringify(blogPosts)); }
+  function savePages() { localStorage.setItem('pages', JSON.stringify(pages)); }
+  function saveSettings() { localStorage.setItem('siteSettings', JSON.stringify(settings)); }
+  
+  function updateStats() {
+    document.getElementById('totalSubmissions').innerText = submissions.length;
+    document.getElementById('pendingSubmissions').innerText = submissions.filter(s => s.status === 'pending').length;
+    document.getElementById('totalPosts').innerText = blogPosts.length;
+    document.getElementById('totalPages').innerText = pages.length;
+    document.getElementById('pendingCount').innerText = submissions.filter(s => s.status === 'pending').length;
+    
+    const analytics = JSON.parse(localStorage.getItem('analytics') || '{}');
+    document.getElementById('monthlyViews').innerText = analytics.monthlyViews || 0;
+    document.getElementById('totalVisitors').innerText = analytics.totalVisitors || 0;
+    document.getElementById('avgTime').innerText = analytics.avgTime || 0;
+    document.getElementById('bounceRate').innerText = (analytics.bounceRate || 0) + '%';
+  }
+  
+  let currentFilter = 'all';
+  function renderSubmissions() {
+    let filtered = submissions;
+    if (currentFilter === 'pending') filtered = submissions.filter(s => s.status === 'pending');
+    else if (currentFilter === 'approved') filtered = submissions.filter(s => s.status === 'approved');
+    else if (currentFilter === 'rejected') filtered = submissions.filter(s => s.status === 'rejected');
+    
+    const tbody = document.getElementById('submissionsList');
+    tbody.innerHTML = filtered.map(sub => `
+      <tr>
+        <td>${new Date(sub.submittedAt).toLocaleDateString()}</td>
+        <td>${escapeHtml(sub.fullname)}</td>
+        <td>${escapeHtml(sub.title.substring(0, 40))}${sub.title.length > 40 ? '...' : ''}</td>
+        <td>${sub.category}</td>
+        <td><span class="status status-${sub.status}">${sub.status}</span></td>
+        <td>
+          <button class="btn-sm btn-info" onclick="viewSubmission(${sub.id})"><i class="fas fa-eye"></i></button>
+          <button class="btn-sm btn-success" onclick="updateStatus(${sub.id}, 'approved')"><i class="fas fa-check"></i></button>
+          <button class="btn-sm btn-danger" onclick="updateStatus(${sub.id}, 'rejected')"><i class="fas fa-times"></i></button>
+          <button class="btn-sm btn-warning" onclick="publishAsPost(${sub.id})"><i class="fas fa-newspaper"></i></button>
+          <button class="btn-sm btn-danger" onclick="deleteSubmission(${sub.id})"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+    
+    const recentDiv = document.getElementById('recentSubmissions');
+    if (recentDiv) {
+      recentDiv.innerHTML = `
+        <table style="width:100%">
+          <thead><tr><th>Date</th><th>Author</th><th>Title</th><th>Status</th></tr></thead>
+          <tbody>
+            ${submissions.slice(0, 5).map(sub => `
+              <tr><td>${new Date(sub.submittedAt).toLocaleDateString()}</td><td>${escapeHtml(sub.fullname)}</td><td>${escapeHtml(sub.title.substring(0, 40))}</td><td><span class="status status-${sub.status}">${sub.status}</span></td></tr>
+            `).join('')}
+            ${submissions.length === 0 ? '<tr><td colspan="4" style="text-align:center">No submissions yet</td></tr>' : ''}
+          </tbody>
+        </table>
+      `;
+    }
+  }
+  
+  function renderPosts() {
+    const tbody = document.getElementById('postsList');
+    tbody.innerHTML = blogPosts.map((post, index) => `
+      <tr>
+        <td>${escapeHtml(post.title)}</td>
+        <td>${post.category || 'Uncategorized'}</td>
+        <td>${post.date || new Date().toLocaleDateString()}</td>
+        <td><span class="status status-${post.status || 'draft'}">${post.status || 'draft'}</span></td>
+        <td>
+          <button class="btn-sm btn-info" onclick="editPost(${index})"><i class="fas fa-edit"></i></button>
+          <button class="btn-sm btn-success" onclick="publishPost(${index})"><i class="fas fa-globe"></i></button>
+          <button class="btn-sm btn-danger" onclick="deletePost(${index})"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+    if (blogPosts.length === 0) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">No blog posts yet</td></tr>';
+  }
+  
+  function renderPages() {
+    const tbody = document.getElementById('pagesList');
+    tbody.innerHTML = pages.map((page, index) => `
+      <tr>
+        <td>${escapeHtml(page.title)}</td>
+        <td>${page.slug}</td>
+        <td>${page.lastModified || new Date().toLocaleDateString()}</td>
+        <td>
+          <button class="btn-sm btn-info" onclick="editPage(${index})"><i class="fas fa-edit"></i></button>
+          <button class="btn-sm btn-danger" onclick="deletePage(${index})"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+    if (pages.length === 0) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">No pages yet</td></tr>';
+  }
+  
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+  
+  function updateStatus(id, status) {
+    submissions = submissions.map(s => s.id === id ? { ...s, status } : s);
+    saveSubmissions();
+    renderSubmissions();
+    updateStats();
+  }
+  
+  function deleteSubmission(id) {
+    if (confirm('Delete this submission?')) {
+      submissions = submissions.filter(s => s.id !== id);
+      saveSubmissions();
+      renderSubmissions();
+      updateStats();
+    }
+  }
+  
+  function viewSubmission(id) {
+    const sub = submissions.find(s => s.id === id);
+    if (sub) {
+      document.getElementById('modalBody').innerHTML = `
+        <div><strong>Author:</strong> ${escapeHtml(sub.fullname)}</div>
+        <div><strong>Email:</strong> ${escapeHtml(sub.email)}</div>
+        <div><strong>Website:</strong> ${sub.website || 'Not provided'}</div>
+        <div><strong>Title:</strong> ${escapeHtml(sub.title)}</div>
+        <div><strong>Category:</strong> ${sub.category}</div>
+        <div><strong>Topics:</strong> ${sub.topics?.join(', ') || 'None'}</div>
+        <div><strong>Bio:</strong> ${escapeHtml(sub.bio)}</div>
+        <div><strong>Excerpt:</strong> ${escapeHtml(sub.excerpt)}</div>
+        <div><strong>Content:</strong></div>
+        <div style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.8rem;">${escapeHtml(sub.content)}</div>
+        ${sub.images && sub.images.length ? `<div><strong>Images:</strong> ${sub.images.join(', ')}</div>` : ''}
+      `;
+      document.getElementById('viewModal').style.display = 'flex';
+    }
+  }
+  
+  function publishAsPost(id) {
+    const sub = submissions.find(s => s.id === id);
+    if (sub && confirm(`Publish "${sub.title}" as a blog post?`)) {
+      const newPost = {
+        title: sub.title,
+        content: sub.content,
+        excerpt: sub.excerpt,
+        category: sub.category,
+        author: sub.fullname,
+        date: new Date().toLocaleDateString(),
+        status: 'published'
+      };
+      blogPosts.unshift(newPost);
+      saveBlogPosts();
+      updateStatus(id, 'approved');
+      renderPosts();
+      updateStats();
+      alert('Post published successfully!');
+    }
+  }
+  
+  function newPost() {
+    const title = prompt('Enter post title:');
+    if (title) {
+      const content = prompt('Enter post content (or paste markdown):');
+      blogPosts.unshift({ title, content: content || '', category: 'Uncategorized', date: new Date().toLocaleDateString(), status: 'draft' });
+      saveBlogPosts();
+      renderPosts();
+      updateStats();
+    }
+  }
+  
+  function editPost(index) {
+    const post = blogPosts[index];
+    const newTitle = prompt('Edit title:', post.title);
+    if (newTitle) {
+      post.title = newTitle;
+      post.content = prompt('Edit content:', post.content) || post.content;
+      saveBlogPosts();
+      renderPosts();
+    }
+  }
+  
+  function publishPost(index) {
+    blogPosts[index].status = 'published';
+    saveBlogPosts();
+    renderPosts();
+  }
+  
+  function deletePost(index) {
+    if (confirm('Delete this post?')) {
+      blogPosts.splice(index, 1);
+      saveBlogPosts();
+      renderPosts();
+      updateStats();
+    }
+  }
+  
+  function newPage() {
+    const title = prompt('Enter page title:');
+    if (title) {
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      pages.push({ title, slug, content: '', lastModified: new Date().toLocaleDateString() });
+      savePages();
+      renderPages();
+      updateStats();
+    }
+  }
+  
+  function editPage(index) {
+    const page = pages[index];
+    const newTitle = prompt('Edit page title:', page.title);
+    if (newTitle) {
+      page.title = newTitle;
+      page.slug = newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      page.lastModified = new Date().toLocaleDateString();
+      savePages();
+      renderPages();
+    }
+  }
+  
+  function deletePage(index) {
+    if (confirm('Delete this page?')) {
+      pages.splice(index, 1);
+      savePages();
+      renderPages();
+      updateStats();
+    }
+  }
+  
+  function closeModal() { document.getElementById('viewModal').style.display = 'none'; }
+  
+  function exportData() {
+    const allData = { submissions, blogPosts, pages, settings, exportDate: new Date().toISOString() };
+    const dataStr = JSON.stringify(allData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `markmix-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  
+  function importData(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.submissions) { submissions = data.submissions; saveSubmissions(); }
+        if (data.blogPosts) { blogPosts = data.blogPosts; saveBlogPosts(); }
+        if (data.pages) { pages = data.pages; savePages(); }
+        if (data.settings) { settings = data.settings; saveSettings(); }
+        alert('Data imported successfully!');
+        location.reload();
+      } catch(err) { alert('Invalid backup file'); }
+    };
+    reader.readAsText(file);
+  }
+  
+  function confirmClearAll() {
+    if (confirm('⚠️ DANGER: This will delete ALL data. Are you ABSOLUTELY sure?')) {
+      if (confirm('FINAL WARNING: This action cannot be undone. Delete everything?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+  }
+  
+  function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(`${sectionId}-section`).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+    document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+    document.getElementById('currentSection').innerText = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+  }
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.getElementById('themeToggleAdmin').innerHTML = next === 'dark' ? '🌙' : '☀️';
+  }
+  
+  function checkAuth() {
+    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+    if (!isAuthenticated && !window.location.hash.includes('auth')) {
+      const password = prompt('Enter admin password:');
+      if (password === 'admin2026') {
+        sessionStorage.setItem('adminAuthenticated', 'true');
+      } else {
+        alert('Incorrect password');
+        window.location.href = 'index.html';
+      }
+    }
+  }
+  
+  function init() {
+    checkAuth();
+    loadData();
+    updateStats();
+    renderSubmissions();
+    renderPosts();
+    renderPages();
+    
+    document.querySelectorAll('.nav-item').forEach(nav => {
+      nav.addEventListener('click', () => showSection(nav.dataset.section));
+    });
+    document.getElementById('themeToggleAdmin').addEventListener('click', toggleTheme);
+    document.getElementById('logoutBtn').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'index.html'; });
+    document.getElementById('newPostBtn')?.addEventListener('click', newPost);
+    document.getElementById('newPageBtn')?.addEventListener('click', newPage);
+    document.getElementById('exportDataBtn')?.addEventListener('click', exportData);
+    document.getElementById('importDataBtn')?.addEventListener('click', () => document.getElementById('importFile').click());
+    document.getElementById('importFile')?.addEventListener('change', (e) => { if(e.target.files[0]) importData(e.target.files[0]); });
+    document.getElementById('saveSettingsBtn')?.addEventListener('click', () => { alert('Settings saved (demo)'); });
+    document.getElementById('filterAll')?.addEventListener('click', () => { currentFilter = 'all'; renderSubmissions(); });
+    document.getElementById('filterPending')?.addEventListener('click', () => { currentFilter = 'pending'; renderSubmissions(); });
+    document.getElementById('filterApproved')?.addEventListener('click', () => { currentFilter = 'approved'; renderSubmissions(); });
+    document.getElementById('filterRejected')?.addEventListener('click', () => { currentFilter = 'rejected'; renderSubmissions(); });
+    
+    document.getElementById('menuToggle')?.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+  }
+  
+  init();
+</script>
+</body>
+</html>
