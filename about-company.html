@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>About Markmix Digital — Web & Visual Studio</title>
+  <meta name="description" content="Markmix Digital (2023 - present), founded by Bismark Agyapong, builds responsive web apps, browser utilities, visual designs, and photography." />
+  <meta name="author" content="Markmix Digital" />
+  <link rel="canonical" href="https://bismark.is-a.dev/about-company.html" />
+  <meta property="og:title" content="About Markmix Digital — Web & Visual Studio" />
+  <meta property="og:description" content="Responsive web apps, browser utilities, visual designs, and photography by Markmix Digital (2023 - present)." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" />
+  <meta property="og:url" content="https://bismark.is-a.dev/about-company.html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    :root { --font-head: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'JetBrains Mono', monospace; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; border: 1px solid var(--border); background: var(--surface); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-soft); }
+    .page-header { width: 100%; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .page-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 1rem; }
+    .page-title { font-family: var(--font-head); font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
+    .page-title span.accent { color: var(--gold); }
+    .page-subtitle { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--muted2); }
+    .page-content { width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .page-content section { display: flex; flex-direction: column; gap: 0.8rem; }
+    .page-content h2 { font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--text); border-bottom: 2px solid var(--gold); padding-bottom: 0.4rem; align-self: flex-start; }
+    .page-content p, .page-content li { font-family: var(--font-head); font-size: 0.92rem; line-height: 1.75; color: var(--muted2); }
+    .page-content strong { color: var(--text); }
+    .page-content ul { padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .service-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; }
+    .service-title { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    .service-desc { font-family: var(--font-head); font-size: 0.82rem; line-height: 1.5; color: var(--muted2); }
+    .callout { background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <header class="page-header">
+      <div class="page-tag"><span>⬡</span> 2023 - present</div>
+      <h1 class="page-title">Markmix <span class="accent">Digital</span></h1>
+      <p class="page-subtitle">Responsive web tools, visual design, and photography from Kumasi.</p>
+    </header>
+    <div class="page-content">
+      <section>
+        <h2>Overview</h2>
+        <p><strong>Markmix Digital</strong> (operating <strong>2023 - present</strong>), founded by <strong>Bismark Agyapong</strong>, builds practical web applications, client-side utilities, visual assets, and photography with a focus on speed and clarity.</p>
+      </section>
+      <section>
+        <h2>Capabilities</h2>
+        <div class="services-grid">
+          <div class="service-card"><h3 class="service-title">Web Development</h3><p class="service-desc">Responsive sites and browser utilities built with HTML5, CSS3, and JavaScript.</p></div>
+          <div class="service-card"><h3 class="service-title">Visual & Flyer Design</h3><p class="service-desc">Clean layouts, promotional graphics, and digital photo manipulation.</p></div>
+          <div class="service-card"><h3 class="service-title">Photography</h3><p class="service-desc">Portraits, event coverage, and monochrome visual work.</p></div>
+          <div class="service-card"><h3 class="service-title">Prompt & Workflow Craft</h3><p class="service-desc">Structured AI prompting and lean web deployment workflows.</p></div>
+        </div>
+      </section>
+      <section>
+        <h2>Standards</h2>
+        <ul>
+          <li><strong>No inflated metrics:</strong> Only verified project scope and real capabilities are listed.</li>
+          <li><strong>Clean delivery:</strong> Fast-loading pages that work across desktop and mobile screens.</li>
+        </ul>
+        <div class="callout">
+          <p><strong>Start a project:</strong> Use <a href="contact-company.html">Studio Inquiries</a> to share your requirements.</p>
+        </div>
+      </section>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="colophon.html">Colophon</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="script.js?v=4" defer></script>
+</body>
+</html>
