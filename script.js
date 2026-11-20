@@ -46,36 +46,6 @@
 
 
 /* ════════════════════════════════
-   CURSOR  (desktop only)
-════════════════════════════════ */
-(function initCursor() {
-  if (window.matchMedia('(hover: none)').matches) return; // skip touch devices
-
-  const cursor = document.getElementById('cursor');
-  if (!cursor) return;
-
-  let rafId;
-
-  document.addEventListener('mousemove', (e) => {
-    cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(() => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-  });
-
-  // Hover state on interactive elements
-  document.querySelectorAll('.link-card, a, button').forEach((el) => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('link-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('link-hover'));
-  });
-
-  document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
-  document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
-})();
-
-
-/* ════════════════════════════════
    GLOW FOLLOW  (RAF-throttled)
 ════════════════════════════════ */
 (function initGlow() {
@@ -88,7 +58,7 @@
         card.style.setProperty('--gx', (e.clientX - rect.left) + 'px');
         card.style.setProperty('--gy', (e.clientY - rect.top)  + 'px');
       });
-    });
+    }, { passive: true });
   });
 })();
 
@@ -138,7 +108,7 @@
         card.style.transform =
           `translateY(-2px) scale(1.008) rotateX(${dy * 3}deg) rotateY(${-dx * 4}deg)`;
       });
-    });
+    }, { passive: true });
 
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
