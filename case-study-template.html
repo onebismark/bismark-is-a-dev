@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Project Case Study — Markmix Digital</title>
+  <meta name="description" content="Case study detailing project scope, technical execution, and measurable results by Markmix Digital." />
+  <meta name="author" content="Markmix Digital" />
+  <link rel="canonical" href="https://bismark.is-a.dev/case-study-template.html" />
+  <meta property="og:title" content="Project Case Study — Markmix Digital" />
+  <meta property="og:description" content="Project scope, technical execution, and measurable results by Markmix Digital." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" />
+  <meta property="og:url" content="https://bismark.is-a.dev/case-study-template.html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    :root { --font-head: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'JetBrains Mono', monospace; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; border: 1px solid var(--border); background: var(--surface); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-soft); }
+    .page-header { width: 100%; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .page-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 1rem; }
+    .page-title { font-family: var(--font-head); font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
+    .page-title span.accent { color: var(--gold); }
+    .case-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1rem 0; }
+    .meta-item { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 0.3rem 0.8rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted2); }
+    .case-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 2rem 0; }
+    .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; text-align: center; }
+    .stat-number { font-family: var(--font-head); font-size: 2rem; font-weight: 800; color: var(--gold); }
+    .stat-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted2); }
+    .page-content { width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .page-content section { display: flex; flex-direction: column; gap: 0.8rem; }
+    .page-content h2 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 0.8rem; }
+    .page-content p, .page-content li { font-family: var(--font-head); font-size: 0.9rem; line-height: 1.7; color: var(--muted2); }
+    .page-content strong { color: var(--text); }
+    .page-content ul, .page-content ol { padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .image-placeholder { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); min-height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--muted); font-family: var(--font-mono); font-size: 0.8rem; }
+    .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .callout { background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 1rem; }
+    @media (max-width: 640px) { .two-column, .case-stats { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <header class="page-header">
+      <div class="page-tag"><span>📖</span> Case Study</div>
+      <h1 class="page-title"><span class="accent">Project Title</span></h1>
+      <div class="case-meta">
+        <span class="meta-item">Client: Client Name</span>
+        <span class="meta-item">Sector: Industry</span>
+        <span class="meta-item">Timeline: 2023 - present</span>
+        <span class="meta-item">Scope: Web Engineering & Visual Design</span>
+      </div>
+    </header>
+    <div class="case-stats">
+      <div class="stat-box"><div class="stat-number">+150%</div><div class="stat-label">Organic Reach</div></div>
+      <div class="stat-box"><div class="stat-number">40%</div><div class="stat-label">Inquiry Conversion</div></div>
+      <div class="stat-box"><div class="stat-number">&lt; 1.2s</div><div class="stat-label">Page Load Time</div></div>
+    </div>
+    <div class="image-placeholder">Replace with project showcase image (1200x630 recommended)</div>
+    <div class="page-content">
+      <section>
+        <h2>Overview</h2>
+        <p><strong>Client Name</strong> needed a faster, clearer web presence to showcase core offerings and convert visitors into inquiries without heavy dependencies.</p>
+      </section>
+      <section>
+        <h2>The Challenge</h2>
+        <ul>
+          <li><strong>Slow load times</strong> on mobile connections and metered data.</li>
+          <li><strong>Unclear navigation</strong> causing high drop-off on key pages.</li>
+          <li><strong>Inconsistent visual hierarchy</strong> across desktop and mobile screens.</li>
+        </ul>
+      </section>
+      <div class="two-column">
+        <div class="image-placeholder">Before State Screenshot</div>
+        <div class="image-placeholder">After State Screenshot</div>
+      </div>
+      <section>
+        <h2>Approach & Execution</h2>
+        <ol>
+          <li><strong>Audit:</strong> Identified layout bottlenecks, asset weight, and navigation gaps.</li>
+          <li><strong>Architecture:</strong> Structured semantic HTML, responsive CSS, and modular JS.</li>
+          <li><strong>Verification:</strong> Tested across viewports, themes, and network conditions before launch.</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Results</h2>
+        <ul>
+          <li><strong>Faster initial paint</strong> across mobile and desktop browsers.</li>
+          <li><strong>Cleaner user flow</strong> from landing page to direct contact.</li>
+        </ul>
+      </section>
+      <div class="callout">
+        <p><strong>Ready to start a build?</strong> Reach out via <a href="contact.html">the contact page</a>.</p>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="colophon.html">Colophon</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="script.js?v=4" defer></script>
+</body>
+</html>
