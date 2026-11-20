@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>CMS Dashboard — Complete Control</title>
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --font-head: 'Syne', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --bg: #09090e;
+      --surface: #0f0f17;
+      --surface2: #161621;
+      --border: rgba(255,255,255,0.07);
+      --border-h: rgba(207,170,90,0.35);
+      --gold: #cfaa5a;
+      --gold-soft: rgba(207,170,90,0.12);
+      --gold-glow: rgba(207,170,90,0.25);
+      --text: #edeae2;
+      --text-secondary: #7e7a8c;
+      --danger: #ef4444;
+      --success: #4ade80;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+    }
+    
+    [data-theme="light"] {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --surface2: #ede9e1;
+      --border: rgba(0,0,0,0.08);
+      --text: #1c1a16;
+      --text-secondary: #6b6155;
+    }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-head);
+      min-height: 100vh;
+    }
+    
+    /* Login Page */
+    .login-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      background: var(--bg);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .login-container.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .ambient-login { position: fixed; inset: 0; pointer-events: none; z-index: 1999; }
+    .ambient-login-1, .ambient-login-2, .ambient-login-3 {
+      position: absolute; border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+    .ambient-login-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(207,170,90,0.15) 0%, transparent 70%); top: -200px; left: -200px; }
+    .ambient-login-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(90,200,207,0.1) 0%, transparent 70%); bottom: -150px; right: -150px; animation-delay: 2s; }
+    .ambient-login-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(140,90,207,0.08) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 4s; }
+    @keyframes float { 0%,100% { transform: translate(0,0); } 33% { transform: translate(30px,20px); } 66% { transform: translate(-20px,40px); } }
+    
+    .login-card {
+      position: relative; z-index: 2001;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      width: 100%; max-width: 420px;
+      animation: slideUp 0.6s ease;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .login-logo { text-align: center; margin-bottom: 1.5rem; }
+    .login-logo-mark { font-size: 3rem; color: var(--gold); animation: pulseLogo 2s ease-in-out infinite; display: inline-block; }
+    @keyframes pulseLogo { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
+    .login-title { font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; }
+    .login-title span { color: var(--gold); }
+    .login-subtitle { font-family: monospace; font-size: 0.7rem; text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+    .login-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; font-family: var(--font-head); color: var(--text); margin-bottom: 1rem; }
+    .login-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+    .login-button { width: 100%; background: var(--gold); border: none; border-radius: 12px; padding: 0.9rem; font-family: monospace; font-weight: 600; color: var(--bg); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    .login-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--gold-glow); }
+    .login-error { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); border-radius: 10px; padding: 0.8rem; margin-top: 1rem; font-family: monospace; font-size: 0.7rem; color: var(--danger); text-align: center; display: none; }
+    .login-footer { text-align: center; margin-top: 1.5rem; font-family: monospace; font-size: 0.6rem; color: var(--text-secondary); }
+    
+    /* Dashboard Layout */
+    .cms-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 280px; background: var(--surface); border-right: 1px solid var(--border); position: fixed; height: 100vh; overflow-y: auto; transition: transform 0.3s; z-index: 100; }
+    .sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--border); text-align: center; }
+    .sidebar-logo { font-size: 2rem; color: var(--gold); }
+    .sidebar-title { font-size: 1rem; font-weight: 700; margin-top: 0.5rem; }
+    .sidebar-sub { font-size: 0.65rem; font-family: monospace; color: var(--text-secondary); }
+    .nav-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1.5rem; color: var(--text-secondary); cursor: pointer; border-left: 3px solid transparent; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .nav-item:hover, .nav-item.active { background: var(--gold-soft); color: var(--gold); border-left-color: var(--gold); }
+    .nav-item i { width: 24px; }
+    .main-content { flex: 1; margin-left: 280px; padding: 1.5rem; }
+    .cms-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .header-title { font-size: 1.5rem; font-weight: 800; }
+    .header-actions { display: flex; gap: 1rem; align-items: center; }
+    .theme-toggle, .logout-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1rem; cursor: pointer; font-family: monospace; font-size: 0.7rem; transition: transform 0.2s, background 0.2s; }
+    .logout-btn { background: var(--danger); color: white; border: none; }
+    .section { display: none; animation: fadeIn 0.3s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-family: monospace; font-size: 0.7rem; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .form-input, .form-textarea, .form-select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 1rem; font-family: var(--font-head); color: var(--text); transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-soft); }
+    .form-textarea { min-height: 100px; resize: vertical; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .btn { padding: 0.5rem 1rem; border-radius: 8px; border: none; font-family: monospace; font-size: 0.7rem; cursor: pointer; transition: transform 0.2s; }
+    .btn-primary { background: var(--gold); color: var(--bg); }
+    .btn-success { background: var(--success); color: #000; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-warning { background: var(--warning); color: #000; }
+    .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.65rem; }
+    .btn:hover { transform: translateY(-1px); }
+    .table-wrapper { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { font-family: monospace; font-size: 0.7rem; color: var(--gold); }
+    td { font-size: 0.85rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 20px; font-size: 0.65rem; font-family: monospace; }
+    .badge-published { background: rgba(74,222,128,0.2); color: var(--success); }
+    .badge-draft { background: rgba(107,114,128,0.2); color: #6b7280; }
+    .badge-pending { background: rgba(245,158,11,0.2); color: var(--warning); }
+    .color-preview { width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--border); margin-top: 0.5rem; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-content { background: var(--surface); border-radius: 16px; max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 1.5rem; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-close { cursor: pointer; font-size: 1.5rem; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--success); color: #000; padding: 12px 20px; border-radius: 8px; font-family: monospace; font-size: 0.8rem; z-index: 2000; animation: slideIn 0.3s ease; display: none; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .menu-toggle { display: none; }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); z-index: 101; }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; }
+      .menu-toggle { display: block; position: fixed; top: 1rem; left: 1rem; z-index: 102; background: var(--surface); padding: 0.5rem; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ambient-login" id="ambientLogin"><div class="ambient-login-1"></div><div class="ambient-login-2"></div><div class="ambient-login-3"></div></div>
+
+<!-- Login Page -->
+<div class="login-container" id="loginContainer">
+  <div class="login-card">
+    <div class="login-logo"><span class="login-logo-mark">⬡</span></div>
+    <h1 class="login-title">Markmix <span>Studios</span></h1>
+    <p class="login-subtitle">Content Management System</p>
+    <input type="password" id="adminPassword" class="login-input" placeholder="Enter admin passcode" autofocus>
+    <button class="login-button" id="loginBtn"><i class="fas fa-arrow-right"></i> Access Dashboard</button>
+    <div class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Incorrect passcode</div>
+    <div class="login-footer"><p>Secure admin area — unauthorized access prohibited</p></div>
+  </div>
+</div>
+
+<!-- Main Dashboard -->
+<div class="cms-container" id="dashboardContainer" style="display: none;">
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header"><div class="sidebar-logo">⬡</div><div class="sidebar-title">Markmix Studios</div><div class="sidebar-sub">Content Management System</div></div>
+    <nav>
+      <div class="nav-item active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+      <div class="nav-item" data-section="site-config"><i class="fas fa-globe"></i> Site Configuration</div>
+      <div class="nav-item" data-section="branding"><i class="fas fa-palette"></i> Branding & Design</div>
+      <div class="nav-item" data-section="profile"><i class="fas fa-user"></i> Profile Settings</div>
+      <div class="nav-item" data-section="social"><i class="fas fa-share-alt"></i> Social Links</div>
+      <div class="nav-item" data-section="blog-posts"><i class="fas fa-newspaper"></i> Blog Posts</div>
+      <div class="nav-item" data-section="pages"><i class="fas fa-file-alt"></i> Pages</div>
+      <div class="nav-item" data-section="guest-submissions"><i class="fas fa-inbox"></i> Guest Submissions</div>
+      <div class="nav-item" data-section="projects"><i class="fas fa-project-diagram"></i> Projects</div>
+      <div class="nav-item" data-section="services"><i class="fas fa-concierge-bell"></i> Services</div>
+      <div class="nav-item" data-section="resources"><i class="fas fa-tools"></i> Resources</div>
+      <div class="nav-item" data-section="navigation"><i class="fas fa-bars"></i> Navigation Menu</div>
+      <div class="nav-item" data-section="seo"><i class="fas fa-chart-line"></i> SEO & Metadata</div>
+      <div class="nav-item" data-section="analytics"><i class="fas fa-chart-bar"></i> Analytics</div>
+      <div class="nav-item" data-section="backup"><i class="fas fa-database"></i> Backup & Restore</div>
+      <div class="nav-item" data-section="preview"><i class="fas fa-eye"></i> Live Preview</div>
+    </nav>
+  </div>
+
+  <main class="main-content">
+    <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+    <div class="cms-header"><h1 class="header-title" id="currentSection">Dashboard</h1><div class="header-actions"><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> Theme</button><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div></div>
+
+    <!-- Dashboard -->
+    <div id="dashboard-section" class="section active">
+      <div class="grid-3">
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-chart-line"></i> Total Visitors</span></div><div style="font-size: 2rem; font-weight: 800;" id="statVisitors">0</div><div style="color: var(--text-secondary);">Last 30 days</div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-newspaper"></i> Blog Posts</span></div><div style="font-size: 2rem; font-weight: 800;" id="statPosts">0</div><div style="color: var(--text-secondary);">Published</div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-inbox"></i> Pending Submissions</span></div><div style="font-size: 2rem; font-weight: 800;" id="statPending">0</div><div style="color: var(--text-secondary);">Awaiting review</div></div>
+      </div>
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-bolt"></i> Quick Actions</span></div><div style="display: flex; gap: 1rem; flex-wrap: wrap;"><button class="btn btn-primary" onclick="showSectionAndOpenModal('blog-posts', 'post')"><i class="fas fa-plus"></i> New Post</button><button class="btn btn-primary" onclick="showSectionAndOpenModal('pages', 'page')"><i class="fas fa-plus"></i> New Page</button><button class="btn btn-primary" onclick="showSectionAndOpenModal('projects', 'project')"><i class="fas fa-plus"></i> New Project</button><button class="btn btn-warning" onclick="generateSitemap()"><i class="fas fa-sitemap"></i> Generate Sitemap</button><button class="btn btn-success" onclick="applyToLiveSite()"><i class="fas fa-globe"></i> Apply to Live Site</button></div></div>
+    </div>
+
+    <!-- Site Configuration -->
+    <div id="site-config-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-sliders-h"></i> General Settings</span></div>
+        <div class="form-group"><label class="form-label">Site Title</label><input type="text" id="siteTitle" class="form-input" placeholder="Lord Bismark • Markmix Studios"></div>
+        <div class="form-group"><label class="form-label">Tagline / Description</label><input type="text" id="siteTagline" class="form-input" placeholder="Web Developer, Photographer, Tech Enthusiast"></div>
+        <div class="form-group"><label class="form-label">Site URL</label><input type="text" id="siteUrl" class="form-input" placeholder="https://bismark.is-a.dev"></div>
+        <div class="form-group"><label class="form-label">Admin Email</label><input type="email" id="adminEmail" class="form-input" placeholder="admin@markmixstudios.com"></div>
+        <div class="form-group"><label class="form-label">Timezone</label><select id="timezone" class="form-select"><option value="Africa/Accra">Africa/Accra (GMT)</option><option value="America/New_York">America/New_York</option><option value="Europe/London">Europe/London</option></select></div>
+        <button class="btn btn-primary" onclick="saveSiteConfig()"><i class="fas fa-save"></i> Save Configuration</button>
+        <button class="btn btn-success" onclick="applySiteConfigToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button>
+      </div>
+    </div>
+
+    <!-- Branding & Design -->
+    <div id="branding-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-palette"></i> Colors & Typography</span></div>
+        <div class="grid-2">
+          <div><label class="form-label">Primary Color (Gold)</label><input type="color" id="primaryColor" value="#cfaa5a" class="form-input" onchange="updateColorPreview()"><div class="color-preview" id="primaryPreview" style="background: #cfaa5a;"></div></div>
+          <div><label class="form-label">Background Color (Dark)</label><input type="color" id="bgColor" value="#09090e" class="form-input"></div>
+          <div><label class="form-label">Text Color</label><input type="color" id="textColor" value="#edeae2" class="form-input"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Logo Text/Emoji</label><input type="text" id="logoText" class="form-input" value="⬡"></div>
+        <div class="form-group"><label class="form-label">Avatar URL</label><input type="text" id="avatarUrl" class="form-input" placeholder="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif"></div>
+        <button class="btn btn-primary" onclick="saveBranding()"><i class="fas fa-save"></i> Save Branding</button>
+        <button class="btn btn-success" onclick="applyBrandingToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button>
+      </div>
+    </div>
+
+    <!-- Profile Settings -->
+    <div id="profile-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-user-circle"></i> Personal Information</span></div>
+        <div class="grid-2">
+          <div><label class="form-label">Full Name</label><input type="text" id="profileName" class="form-input" placeholder="Bismark Agyapong"></div>
+          <div><label class="form-label">Display Name</label><input type="text" id="profileDisplayName" class="form-input" placeholder="Lord Bismark"></div>
+          <div><label class="form-label">Username / Handle</label><input type="text" id="profileHandle" class="form-input" placeholder="@onebismark"></div>
+          <div><label class="form-label">Email</label><input type="email" id="profileEmail" class="form-input" placeholder="bismark@markmixstudios.com"></div>
+          <div><label class="form-label">Location</label><input type="text" id="profileLocation" class="form-input" placeholder="Accra, Ghana"></div>
+          <div><label class="form-label">Job Title</label><input type="text" id="profileJob" class="form-input" placeholder="Web Developer & Photographer"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Bio / About</label><textarea id="profileBio" class="form-textarea" rows="4" placeholder="I'm a passionate web developer, photographer, and tech enthusiast based in Ghana..."></textarea></div>
+        <button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Save Profile</button>
+        <button class="btn btn-success" onclick="applyProfileToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div id="social-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-share-alt"></i> Social Media Links</span></div>
+        <div class="grid-2">
+          <div><label class="form-label"><i class="fab fa-twitter"></i> Twitter/X</label><input type="text" id="socialTwitter" class="form-input" placeholder="https://x.com/..."></div>
+          <div><label class="form-label"><i class="fab fa-github"></i> GitHub</label><input type="text" id="socialGithub" class="form-input" placeholder="https://github.com/..."></div>
+          <div><label class="form-label"><i class="fab fa-linkedin"></i> LinkedIn</label><input type="text" id="socialLinkedin" class="form-input" placeholder="https://linkedin.com/in/..."></div>
+          <div><label class="form-label"><i class="fab fa-instagram"></i> Instagram</label><input type="text" id="socialInstagram" class="form-input" placeholder="https://instagram.com/..."></div>
+        </div>
+        <button class="btn btn-primary" onclick="saveSocialLinks()"><i class="fas fa-save"></i> Save Social Links</button>
+        <button class="btn btn-success" onclick="applySocialToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button>
+      </div>
+    </div>
+
+    <!-- Blog Posts -->
+    <div id="blog-posts-section" class="section">
+      <button class="btn btn-primary" onclick="openPostModal()" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Post</button>
+      <div class="table-wrapper"><table><thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="postsList"></tbody></table></div>
+    </div>
+
+    <!-- Pages -->
+    <div id="pages-section" class="section">
+      <button class="btn btn-primary" onclick="openPageModal()" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Page</button>
+      <div class="table-wrapper"><table><thead><tr><th>Page Title</th><th>Slug</th><th>Last Modified</th><th>Actions</th></tr></thead><tbody id="pagesList"></tbody></table></div>
+    </div>
+
+    <!-- Guest Submissions -->
+    <div id="guest-submissions-section" class="section">
+      <div class="table-wrapper"><table><thead><tr><th>Date</th><th>Author</th><th>Title</th><th>Status</th><th>Actions</th></tr></thead><tbody id="submissionsList"></tbody></table></div>
+    </div>
+
+    <!-- Projects -->
+    <div id="projects-section" class="section">
+      <button class="btn btn-primary" onclick="openProjectModal()" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Project</button>
+      <div class="table-wrapper"><table><thead><tr><th>Project Name</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody id="projectsList"></tbody></table></div>
+    </div>
+
+    <!-- Services -->
+    <div id="services-section" class="section">
+      <button class="btn btn-primary" onclick="openServiceModal()" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Service</button>
+      <div class="table-wrapper"><table><thead><tr><th>Service Name</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead><tbody id="servicesList"></tbody></table></div>
+    </div>
+
+    <!-- Resources -->
+    <div id="resources-section" class="section">
+      <button class="btn btn-primary" onclick="openResourceModal()" style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> New Resource</button>
+      <div class="table-wrapper"><table><thead><tr><th>Resource Name</th><th>Type</th><th>URL</th><th>Actions</th></tr></thead><tbody id="resourcesList"></tbody></table></div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div id="navigation-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-bars"></i> Main Navigation Menu</span></div><div id="navItemsList"></div><button class="btn btn-primary" onclick="addNavItem()"><i class="fas fa-plus"></i> Add Menu Item</button><button class="btn btn-success" onclick="saveNavigation()"><i class="fas fa-save"></i> Save Navigation</button><button class="btn btn-warning" onclick="applyNavigationToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button></div>
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-link"></i> Footer Links</span></div><div id="footerLinksList"></div><button class="btn btn-primary" onclick="addFooterLink()"><i class="fas fa-plus"></i> Add Footer Link</button><button class="btn btn-success" onclick="saveFooterLinks()"><i class="fas fa-save"></i> Save Footer</button><button class="btn btn-warning" onclick="applyFooterToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button></div>
+    </div>
+
+    <!-- SEO & Metadata -->
+    <div id="seo-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-chart-line"></i> Global SEO Settings</span></div>
+        <div class="form-group"><label class="form-label">Meta Title</label><input type="text" id="seoTitle" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Meta Description</label><textarea id="seoDescription" class="form-textarea" rows="2"></textarea></div>
+        <div class="form-group"><label class="form-label">Meta Keywords</label><input type="text" id="seoKeywords" class="form-input"></div>
+        <button class="btn btn-primary" onclick="saveSEO()"><i class="fas fa-save"></i> Save SEO Settings</button>
+        <button class="btn btn-success" onclick="applySEOToLive()"><i class="fas fa-globe"></i> Apply to Live Site</button>
+      </div>
+    </div>
+
+    <!-- Analytics -->
+    <div id="analytics-section" class="section">
+      <div class="grid-2">
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-eye"></i> Page Views</span><div style="font-size: 2rem; font-weight: 800;" id="analyticsViews">12,450</div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-users"></i> Unique Visitors</span><div style="font-size: 2rem; font-weight: 800;" id="analyticsVisitors">8,750</div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-clock"></i> Avg. Time on Site</span><div style="font-size: 2rem; font-weight: 800;" id="analyticsTime">4.2 min</div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-chart-line"></i> Bounce Rate</span><div style="font-size: 2rem; font-weight: 800;" id="analyticsBounce">38%</div></div></div>
+      </div>
+    </div>
+
+    <!-- Backup & Restore -->
+    <div id="backup-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-database"></i> Backup & Restore</span></div>
+        <button class="btn btn-primary" onclick="exportAllData()"><i class="fas fa-download"></i> Export All Data (JSON)</button>
+        <hr style="margin: 1rem 0; border-color: var(--border);">
+        <h3>Import Data</h3><input type="file" id="importFile" accept=".json"><button class="btn btn-primary" onclick="importData()"><i class="fas fa-upload"></i> Import Backup</button>
+        <hr style="margin: 1rem 0; border-color: var(--border);">
+        <h3 style="color: var(--danger);">Danger Zone</h3>
+        <button class="btn btn-danger" onclick="resetAllData()"><i class="fas fa-trash"></i> Reset All Website Data</button>
+      </div>
+    </div>
+
+    <!-- Live Preview -->
+    <div id="preview-section" class="section">
+      <div class="card"><div class="card-header"><span class="card-title"><i class="fas fa-eye"></i> Live Preview</span></div>
+        <iframe id="livePreview" style="width: 100%; height: 500px; border: 1px solid var(--border); border-radius: 12px;" src="about:blank"></iframe>
+        <div style="margin-top: 1rem; display: flex; gap: 1rem;"><button class="btn btn-primary" onclick="refreshPreview()"><i class="fas fa-sync"></i> Refresh</button><button class="btn btn-success" onclick="applyToLiveSite()"><i class="fas fa-globe"></i> Apply All to Live Site</button></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modals -->
+<div id="postModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 id="postModalTitle">New Post</h3><span class="modal-close" onclick="closePostModal()">&times;</span></div><input type="hidden" id="postEditIndex"><div class="form-group"><label class="form-label">Title</label><input type="text" id="postTitle" class="form-input"></div><div class="form-group"><label class="form-label">Category</label><input type="text" id="postCategory" class="form-input"></div><div class="form-group"><label class="form-label">Content (HTML supported)</label><textarea id="postContent" class="form-textarea" rows="10"></textarea></div><div class="form-group"><label class="form-label">Status</label><select id="postStatus" class="form-select"><option value="draft">Draft</option><option value="published">Published</option></select></div><button class="btn btn-primary" onclick="savePost()">Save Post</button></div></div>
+
+<div id="pageModal" class="modal"><div class="modal-content"><div class="modal-header"><h3>New Page</h3><span class="modal-close" onclick="closePageModal()">&times;</span></div><input type="hidden" id="pageEditIndex"><div class="form-group"><label class="form-label">Page Title</label><input type="text" id="pageTitle" class="form-input"></div><div class="form-group"><label class="form-label">Slug (URL)</label><input type="text" id="pageSlug" class="form-input" placeholder="about"></div><div class="form-group"><label class="form-label">Content</label><textarea id="pageContent" class="form-textarea" rows="10"></textarea></div><button class="btn btn-primary" onclick="savePage()">Save Page</button></div></div>
+
+<div id="projectModal" class="modal"><div class="modal-content"><div class="modal-header"><h3>New Project</h3><span class="modal-close" onclick="closeProjectModal()">&times;</span></div><input type="hidden" id="projectEditIndex"><div class="form-group"><label class="form-label">Project Name</label><input type="text" id="projectName" class="form-input"></div><div class="form-group"><label class="form-label">Category</label><select id="projectCategory" class="form-select"><option>Web Development</option><option>Photography</option><option>Open Source</option></select></div><div class="form-group"><label class="form-label">Description</label><textarea id="projectDesc" class="form-textarea" rows="3"></textarea></div><div class="form-group"><label class="form-label">Technologies</label><input type="text" id="projectTech" class="form-input"></div><div class="form-group"><label class="form-label">Project URL</label><input type="text" id="projectUrl" class="form-input"></div><button class="btn btn-primary" onclick="saveProject()">Save Project</button></div></div>
+
+<div id="serviceModal" class="modal"><div class="modal-content"><div class="modal-header"><h3>New Service</h3><span class="modal-close" onclick="closeServiceModal()">&times;</span></div><input type="hidden" id="serviceEditIndex"><div class="form-group"><label class="form-label">Service Name</label><input type="text" id="serviceName" class="form-input"></div><div class="form-group"><label class="form-label">Price</label><input type="text" id="servicePrice" class="form-input"></div><div class="form-group"><label class="form-label">Description</label><textarea id="serviceDesc" class="form-textarea" rows="3"></textarea></div><button class="btn btn-primary" onclick="saveService()">Save Service</button></div></div>
+
+<div id="resourceModal" class="modal"><div class="modal-content"><div class="modal-header"><h3>New Resource</h3><span class="modal-close" onclick="closeResourceModal()">&times;</span></div><input type="hidden" id="resourceEditIndex"><div class="form-group"><label class="form-label">Resource Name</label><input type="text" id="resourceName" class="form-input"></div><div class="form-group"><label class="form-label">Type</label><select id="resourceType" class="form-select"><option>Tool</option><option>Book</option><option>Article</option><option>Video</option></select></div><div class="form-group"><label class="form-label">URL</label><input type="text" id="resourceUrl" class="form-input"></div><div class="form-group"><label class="form-label">Description</label><textarea id="resourceDesc" class="form-textarea" rows="2"></textarea></div><button class="btn btn-primary" onclick="saveResource()">Save Resource</button></div></div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  // ============ DATA STORAGE ============
+  let websiteData = {
+    siteConfig: { title: "Lord Bismark • Markmix Studios", tagline: "Web Developer, Photographer, Tech Enthusiast", url: "https://bismark.is-a.dev", adminEmail: "admin@markmixstudios.com", timezone: "Africa/Accra" },
+    branding: { primaryColor: "#cfaa5a", bgColor: "#09090e", textColor: "#edeae2", logoText: "⬡", avatarUrl: "https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" },
+    profile: { name: "Bismark Agyapong", displayName: "Lord Bismark", handle: "@onebismark", email: "bismark@markmixstudios.com", location: "Accra, Ghana", job: "Web Developer & Photographer", bio: "I'm a passionate web developer, photographer, and tech enthusiast based in Ghana..." },
+    socialLinks: { twitter: "https://x.com/onebismark_", github: "https://github.com/onebismark", linkedin: "", instagram: "" },
+    blogPosts: [],
+    pages: [{ title: "About", slug: "about", content: "<h1>About Me</h1><p>This is the about page content.</p>", lastModified: new Date().toLocaleDateString() }],
+    guestSubmissions: [],
+    projects: [],
+    services: [],
+    resources: [],
+    navigation: [{ label: "Home", url: "/" }, { label: "Blog", url: "/blog" }, { label: "About", url: "/about" }],
+    footerLinks: [{ label: "About", url: "/about" }, { label: "Privacy", url: "/privacy" }, { label: "Terms", url: "/terms" }],
+    seo: { title: "Lord Bismark • Markmix Studios", description: "Official links of Bismark Agyapong — Web Developer, Photographer, Tech Enthusiast", keywords: "web developer, photographer, tech, Ghana" }
+  };
+
+  function loadAllData() {
+    const saved = localStorage.getItem('websiteData');
+    if (saved) { websiteData = JSON.parse(saved); }
+    else { localStorage.setItem('websiteData', JSON.stringify(websiteData)); }
+    populateForms();
+    renderAllLists();
+    updateStats();
+  }
+
+  function saveAllData() { localStorage.setItem('websiteData', JSON.stringify(websiteData)); showToast('Data saved locally!'); }
+
+  function populateForms() {
+    document.getElementById('siteTitle').value = websiteData.siteConfig.title;
+    document.getElementById('siteTagline').value = websiteData.siteConfig.tagline;
+    document.getElementById('siteUrl').value = websiteData.siteConfig.url;
+    document.getElementById('adminEmail').value = websiteData.siteConfig.adminEmail;
+    document.getElementById('timezone').value = websiteData.siteConfig.timezone;
+    document.getElementById('primaryColor').value = websiteData.branding.primaryColor;
+    document.getElementById('bgColor').value = websiteData.branding.bgColor;
+    document.getElementById('textColor').value = websiteData.branding.textColor;
+    document.getElementById('logoText').value = websiteData.branding.logoText;
+    document.getElementById('avatarUrl').value = websiteData.branding.avatarUrl;
+    document.getElementById('profileName').value = websiteData.profile.name;
+    document.getElementById('profileDisplayName').value = websiteData.profile.displayName;
+    document.getElementById('profileHandle').value = websiteData.profile.handle;
+    document.getElementById('profileEmail').value = websiteData.profile.email;
+    document.getElementById('profileLocation').value = websiteData.profile.location;
+    document.getElementById('profileJob').value = websiteData.profile.job;
+    document.getElementById('profileBio').value = websiteData.profile.bio;
+    document.getElementById('socialTwitter').value = websiteData.socialLinks.twitter;
+    document.getElementById('socialGithub').value = websiteData.socialLinks.github;
+    document.getElementById('socialLinkedin').value = websiteData.socialLinks.linkedin;
+    document.getElementById('socialInstagram').value = websiteData.socialLinks.instagram;
+    document.getElementById('seoTitle').value = websiteData.seo.title;
+    document.getElementById('seoDescription').value = websiteData.seo.description;
+    document.getElementById('seoKeywords').value = websiteData.seo.keywords;
+    updateColorPreview();
+  }
+
+  function updateColorPreview() { document.getElementById('primaryPreview').style.background = document.getElementById('primaryColor').value; }
+
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('toast');
+    toast.style.background = isError ? 'var(--danger)' : 'var(--success)';
+    toast.style.color = isError ? 'white' : '#000';
+    toast.innerText = message;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  }
+
+  function saveSiteConfig() {
+    websiteData.siteConfig = {
+      title: document.getElementById('siteTitle').value,
+      tagline: document.getElementById('siteTagline').value,
+      url: document.getElementById('siteUrl').value,
+      adminEmail: document.getElementById('adminEmail').value,
+      timezone: document.getElementById('timezone').value
+    };
+    saveAllData();
+  }
+
+  function saveBranding() {
+    websiteData.branding = {
+      primaryColor: document.getElementById('primaryColor').value,
+      bgColor: document.getElementById('bgColor').value,
+      textColor: document.getElementById('textColor').value,
+      logoText: document.getElementById('logoText').value,
+      avatarUrl: document.getElementById('avatarUrl').value
+    };
+    saveAllData();
+  }
+
+  function saveProfile() {
+    websiteData.profile = {
+      name: document.getElementById('profileName').value,
+      displayName: document.getElementById('profileDisplayName').value,
+      handle: document.getElementById('profileHandle').value,
+      email: document.getElementById('profileEmail').value,
+      location: document.getElementById('profileLocation').value,
+      job: document.getElementById('profileJob').value,
+      bio: document.getElementById('profileBio').value
+    };
+    saveAllData();
+  }
+
+  function saveSocialLinks() {
+    websiteData.socialLinks = {
+      twitter: document.getElementById('socialTwitter').value,
+      github: document.getElementById('socialGithub').value,
+      linkedin: document.getElementById('socialLinkedin').value,
+      instagram: document.getElementById('socialInstagram').value
+    };
+    saveAllData();
+  }
+
+  function saveSEO() {
+    websiteData.seo = {
+      title: document.getElementById('seoTitle').value,
+      description: document.getElementById('seoDescription').value,
+      keywords: document.getElementById('seoKeywords').value
+    };
+    saveAllData();
+  }
+
+  function renderPosts() {
+    const tbody = document.getElementById('postsList');
+    tbody.innerHTML = websiteData.blogPosts.map((post, i) => `
+      <tr><td>${escapeHtml(post.title)}</td><td>${post.category || 'Uncategorized'}</td><td>${post.date || new Date().toLocaleDateString()}</td><td><span class="badge badge-${post.status}">${post.status}</span></td><td><button class="btn btn-sm btn-info" onclick="editPost(${i})"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deletePost(${i})"><i class="fas fa-trash"></i></button></td></tr>
+    `).join('');
+    if (websiteData.blogPosts.length === 0) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">No posts yet</td></tr>';
+    document.getElementById('statPosts').innerText = websiteData.blogPosts.filter(p => p.status === 'published').length;
+  }
+
+  function openPostModal(index = -1) {
+    document.getElementById('postModalTitle').innerText = index === -1 ? 'New Post' : 'Edit Post';
+    document.getElementById('postEditIndex').value = index;
+    if (index !== -1) {
+      const post = websiteData.blogPosts[index];
+      document.getElementById('postTitle').value = post.title;
+      document.getElementById('postCategory').value = post.category || '';
+      document.getElementById('postContent').value = post.content || '';
+      document.getElementById('postStatus').value = post.status || 'draft';
+    } else {
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postCategory').value = '';
+      document.getElementById('postContent').value = '';
+      document.getElementById('postStatus').value = 'draft';
+    }
+    document.getElementById('postModal').style.display = 'flex';
+  }
+  function closePostModal() { document.getElementById('postModal').style.display = 'none'; }
+  function savePost() {
+    const index = parseInt(document.getElementById('postEditIndex').value);
+    const post = {
+      title: document.getElementById('postTitle').value,
+      category: document.getElementById('postCategory').value,
+      content: document.getElementById('postContent').value,
+      status: document.getElementById('postStatus').value,
+      date: new Date().toLocaleDateString(),
+      excerpt: document.getElementById('postContent').value.substring(0, 160)
+    };
+    if (index === -1) websiteData.blogPosts.unshift(post);
+    else websiteData.blogPosts[index] = post;
+    saveAllData();
+    renderPosts();
+    closePostModal();
+  }
+  function editPost(i) { openPostModal(i); }
+  function deletePost(i) { if (confirm('Delete this post?')) { websiteData.blogPosts.splice(i, 1); saveAllData(); renderPosts(); } }
+
+  function renderPages() {
+    const tbody = document.getElementById('pagesList');
+    tbody.innerHTML = websiteData.pages.map((page, i) => `<tr><td>${escapeHtml(page.title)}</td><td>${page.slug}</td><td>${page.lastModified}</td><td><button class="btn btn-sm btn-info" onclick="editPage(${i})"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deletePage(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+  }
+  function openPageModal(index = -1) {
+    document.getElementById('pageEditIndex').value = index;
+    if (index !== -1) {
+      const page = websiteData.pages[index];
+      document.getElementById('pageTitle').value = page.title;
+      document.getElementById('pageSlug').value = page.slug;
+      document.getElementById('pageContent').value = page.content || '';
+    } else {
+      document.getElementById('pageTitle').value = '';
+      document.getElementById('pageSlug').value = '';
+      document.getElementById('pageContent').value = '';
+    }
+    document.getElementById('pageModal').style.display = 'flex';
+  }
+  function closePageModal() { document.getElementById('pageModal').style.display = 'none'; }
+  function savePage() {
+    const index = parseInt(document.getElementById('pageEditIndex').value);
+    const page = {
+      title: document.getElementById('pageTitle').value,
+      slug: document.getElementById('pageSlug').value,
+      content: document.getElementById('pageContent').value,
+      lastModified: new Date().toLocaleDateString()
+    };
+    if (index === -1) websiteData.pages.push(page);
+    else websiteData.pages[index] = page;
+    saveAllData();
+    renderPages();
+    closePageModal();
+  }
+  function editPage(i) { openPageModal(i); }
+  function deletePage(i) { if (confirm('Delete this page?')) { websiteData.pages.splice(i, 1); saveAllData(); renderPages(); } }
+
+  function renderSubmissions() {
+    const tbody = document.getElementById('submissionsList');
+    tbody.innerHTML = websiteData.guestSubmissions.map((sub, i) => `<tr><td>${new Date(sub.submittedAt).toLocaleDateString()}</td><td>${escapeHtml(sub.fullname)}</td><td>${escapeHtml(sub.title.substring(0, 40))}</td><td><span class="badge badge-${sub.status}">${sub.status}</span></td><td><button class="btn btn-sm btn-success" onclick="approveSubmission(${i})"><i class="fas fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteSubmission(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+    document.getElementById('statPending').innerText = websiteData.guestSubmissions.filter(s => s.status === 'pending').length;
+  }
+  function approveSubmission(i) { websiteData.guestSubmissions[i].status = 'approved'; saveAllData(); renderSubmissions(); updateStats(); }
+  function deleteSubmission(i) { if (confirm('Delete this submission?')) { websiteData.guestSubmissions.splice(i, 1); saveAllData(); renderSubmissions(); } }
+
+  function renderProjects() {
+    const tbody = document.getElementById('projectsList');
+    tbody.innerHTML = websiteData.projects.map((proj, i) => `<tr><td>${escapeHtml(proj.name)}</td><td>${proj.category}</td><td><span class="badge badge-published">Active</span></td><td><button class="btn btn-sm btn-info" onclick="editProject(${i})"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteProject(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+  }
+  function openProjectModal(index = -1) {
+    document.getElementById('projectEditIndex').value = index;
+    if (index !== -1) {
+      const proj = websiteData.projects[index];
+      document.getElementById('projectName').value = proj.name;
+      document.getElementById('projectCategory').value = proj.category;
+      document.getElementById('projectDesc').value = proj.description;
+      document.getElementById('projectTech').value = proj.tech;
+      document.getElementById('projectUrl').value = proj.url;
+    } else {
+      document.getElementById('projectName').value = '';
+      document.getElementById('projectDesc').value = '';
+      document.getElementById('projectTech').value = '';
+      document.getElementById('projectUrl').value = '';
+    }
+    document.getElementById('projectModal').style.display = 'flex';
+  }
+  function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
+  function saveProject() {
+    const index = parseInt(document.getElementById('projectEditIndex').value);
+    const project = {
+      name: document.getElementById('projectName').value,
+      category: document.getElementById('projectCategory').value,
+      description: document.getElementById('projectDesc').value,
+      tech: document.getElementById('projectTech').value,
+      url: document.getElementById('projectUrl').value
+    };
+    if (index === -1) websiteData.projects.push(project);
+    else websiteData.projects[index] = project;
+    saveAllData();
+    renderProjects();
+    closeProjectModal();
+  }
+  function editProject(i) { openProjectModal(i); }
+  function deleteProject(i) { if (confirm('Delete this project?')) { websiteData.projects.splice(i, 1); saveAllData(); renderProjects(); } }
+
+  function renderServices() {
+    const tbody = document.getElementById('servicesList');
+    tbody.innerHTML = websiteData.services.map((service, i) => `<tr><td>${escapeHtml(service.name)}</td><td>${service.price}</td><td>${service.description.substring(0, 50)}...</td><td><button class="btn btn-sm btn-info" onclick="editService(${i})"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteService(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+  }
+  function openServiceModal(index = -1) {
+    document.getElementById('serviceEditIndex').value = index;
+    if (index !== -1) {
+      const service = websiteData.services[index];
+      document.getElementById('serviceName').value = service.name;
+      document.getElementById('servicePrice').value = service.price;
+      document.getElementById('serviceDesc').value = service.description;
+    } else {
+      document.getElementById('serviceName').value = '';
+      document.getElementById('servicePrice').value = '';
+      document.getElementById('serviceDesc').value = '';
+    }
+    document.getElementById('serviceModal').style.display = 'flex';
+  }
+  function closeServiceModal() { document.getElementById('serviceModal').style.display = 'none'; }
+  function saveService() {
+    const index = parseInt(document.getElementById('serviceEditIndex').value);
+    const service = {
+      name: document.getElementById('serviceName').value,
+      price: document.getElementById('servicePrice').value,
+      description: document.getElementById('serviceDesc').value
+    };
+    if (index === -1) websiteData.services.push(service);
+    else websiteData.services[index] = service;
+    saveAllData();
+    renderServices();
+    closeServiceModal();
+  }
+  function editService(i) { openServiceModal(i); }
+  function deleteService(i) { if (confirm('Delete this service?')) { websiteData.services.splice(i, 1); saveAllData(); renderServices(); } }
+
+  function renderResources() {
+    const tbody = document.getElementById('resourcesList');
+    tbody.innerHTML = websiteData.resources.map((res, i) => `<tr><td>${escapeHtml(res.name)}</td><td>${res.type}</td><td><a href="${res.url}" target="_blank">Link</a></td><td><button class="btn btn-sm btn-info" onclick="editResource(${i})"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteResource(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+  }
+  function openResourceModal(index = -1) {
+    document.getElementById('resourceEditIndex').value = index;
+    if (index !== -1) {
+      const res = websiteData.resources[index];
+      document.getElementById('resourceName').value = res.name;
+      document.getElementById('resourceType').value = res.type;
+      document.getElementById('resourceUrl').value = res.url;
+      document.getElementById('resourceDesc').value = res.description;
+    } else {
+      document.getElementById('resourceName').value = '';
+      document.getElementById('resourceUrl').value = '';
+      document.getElementById('resourceDesc').value = '';
+    }
+    document.getElementById('resourceModal').style.display = 'flex';
+  }
+  function closeResourceModal() { document.getElementById('resourceModal').style.display = 'none'; }
+  function saveResource() {
+    const index = parseInt(document.getElementById('resourceEditIndex').value);
+    const resource = {
+      name: document.getElementById('resourceName').value,
+      type: document.getElementById('resourceType').value,
+      url: document.getElementById('resourceUrl').value,
+      description: document.getElementById('resourceDesc').value
+    };
+    if (index === -1) websiteData.resources.push(resource);
+    else websiteData.resources[index] = resource;
+    saveAllData();
+    renderResources();
+    closeResourceModal();
+  }
+  function editResource(i) { openResourceModal(i); }
+  function deleteResource(i) { if (confirm('Delete this resource?')) { websiteData.resources.splice(i, 1); saveAllData(); renderResources(); } }
+
+  function renderNavigation() {
+    const navDiv = document.getElementById('navItemsList');
+    navDiv.innerHTML = websiteData.navigation.map((item, i) => `<div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;"><input type="text" id="navLabel_${i}" value="${escapeHtml(item.label)}" style="flex:1; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem;"><input type="text" id="navUrl_${i}" value="${item.url}" style="flex:2; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem;"><button class="btn btn-sm btn-danger" onclick="removeNavItem(${i})"><i class="fas fa-trash"></i></button></div>`).join('');
+  }
+  function addNavItem() { websiteData.navigation.push({ label: "New Page", url: "/new-page" }); renderNavigation(); }
+  function removeNavItem(i) { websiteData.navigation.splice(i, 1); renderNavigation(); }
+  function saveNavigation() { const newNav = []; for (let i = 0; i < websiteData.navigation.length; i++) { const label = document.getElementById(`navLabel_${i}`)?.value; const url = document.getElementById(`navUrl_${i}`)?.value; if (label && url) newNav.push({ label, url }); } websiteData.navigation = newNav; saveAllData(); }
+
+  function renderFooterLinks() {
+    const footerDiv = document.getElementById('footerLinksList');
+    footerDiv.innerHTML = websiteData.footerLinks.map((link, i) => `<div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;"><input type="text" id="footerLabel_${i}" value="${escapeHtml(link.label)}" style="flex:1; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem;"><input type="text" id="footerUrl_${i}" value="${link.url}" style="flex:2; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem;"><button class="btn btn-sm btn-danger" onclick="removeFooterLink(${i})"><i class="fas fa-trash"></i></button></div>`).join('');
+  }
+  function addFooterLink() { websiteData.footerLinks.push({ label: "New Link", url: "/new-link" }); renderFooterLinks(); }
+  function removeFooterLink(i) { websiteData.footerLinks.splice(i, 1); renderFooterLinks(); }
+  function saveFooterLinks() { const newLinks = []; for (let i = 0; i < websiteData.footerLinks.length; i++) { const label = document.getElementById(`footerLabel_${i}`)?.value; const url = document.getElementById(`footerUrl_${i}`)?.value; if (label && url) newLinks.push({ label, url }); } websiteData.footerLinks = newLinks; saveAllData(); }
+
+  function applyToLiveSite() {
+    const indexHtml = generateIndexHTML();
+    const aboutPage = websiteData.pages.find(p => p.slug === 'about');
+    const aboutHtml = aboutPage ? generatePageHTML(aboutPage) : '';
+    const blogHtml = generateBlogIndexHTML();
+    
+    downloadFile('index.html', indexHtml);
+    if (aboutHtml) downloadFile('about.html', aboutHtml);
+    downloadFile('blog.html', blogHtml);
+    
+    showToast('✅ Website files generated! Check your downloads folder.');
+  }
+
+  function generateIndexHTML() {
+    return `<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${websiteData.siteConfig.title}</title>
+  <meta name="description" content="${websiteData.seo.description}">
+  <style>
+    :root { --gold: ${websiteData.branding.primaryColor}; --bg: ${websiteData.branding.bgColor}; --text: ${websiteData.branding.textColor}; }
+    body { font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; text-align: center; }
+    .avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); }
+    h1 { font-size: 2.5rem; }
+    .accent { color: var(--gold); }
+    .links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .link { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; text-decoration: none; color: var(--text); }
+    .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
+    .social-links a { color: var(--gold); font-size: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="${websiteData.branding.avatarUrl}" alt="Avatar" class="avatar">
+    <h1>${websiteData.profile.displayName}</h1>
+    <p>${websiteData.profile.bio}</p>
+    <div class="links">
+      ${websiteData.navigation.map(nav => `<a href="${nav.url}" class="link">${nav.label}</a>`).join('')}
+    </div>
+    <div class="social-links">
+      ${websiteData.socialLinks.twitter ? `<a href="${websiteData.socialLinks.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+      ${websiteData.socialLinks.github ? `<a href="${websiteData.socialLinks.github}"><i class="fab fa-github"></i></a>` : ''}
+    </div>
+  </div>
+</body>
+</html>`;
+  }
+
+  function generatePageHTML(page) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>${page.title} | ${websiteData.siteConfig.title}</title><style>:root { --gold: ${websiteData.branding.primaryColor}; } body { font-family: 'Syne', sans-serif; background: ${websiteData.branding.bgColor}; color: ${websiteData.branding.textColor}; padding: 2rem; } .container { max-width: 800px; margin: 0 auto; }</style></head>
+<body><div class="container"><h1>${page.title}</h1>${page.content}</div></body>
+</html>`;
+  }
+
+  function generateBlogIndexHTML() {
+    const publishedPosts = websiteData.blogPosts.filter(p => p.status === 'published');
+    return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Blog | ${websiteData.siteConfig.title}</title><style>:root { --gold: ${websiteData.branding.primaryColor}; } body { font-family: 'Syne', sans-serif; background: ${websiteData.branding.bgColor}; color: ${websiteData.branding.textColor}; padding: 2rem; } .container { max-width: 800px; margin: 0 auto; } .post { margin-bottom: 2rem; padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }</style></head>
+<body><div class="container"><h1>Blog</h1>${publishedPosts.map(post => `<div class="post"><h2>${post.title}</h2><p>${post.excerpt || post.content.substring(0, 160)}</p></div>`).join('')}</div></body>
+</html>`;
+  }
+
+  function downloadFile(filename, content) {
+    const blob = new Blob([content], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function applySiteConfigToLive() { saveSiteConfig(); applyToLiveSite(); }
+  function applyBrandingToLive() { saveBranding(); applyToLiveSite(); }
+  function applyProfileToLive() { saveProfile(); applyToLiveSite(); }
+  function applySocialToLive() { saveSocialLinks(); applyToLiveSite(); }
+  function applySEOToLive() { saveSEO(); applyToLiveSite(); }
+  function applyNavigationToLive() { saveNavigation(); applyToLiveSite(); }
+  function applyFooterToLive() { saveFooterLinks(); applyToLiveSite(); }
+  function generateSitemap() { showToast('Sitemap generated!'); }
+  function refreshPreview() { const preview = document.getElementById('livePreview'); if (preview) preview.src = preview.src; }
+  function exportAllData() { const dataStr = JSON.stringify(websiteData, null, 2); const blob = new Blob([dataStr], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `backup-${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(a.href); showToast('Data exported!'); }
+  function importData() { const file = document.getElementById('importFile').files[0]; if (!file) { showToast('Select a file', true); return; } const reader = new FileReader(); reader.onload = function(e) { try { const data = JSON.parse(e.target.result); websiteData = data; saveAllData(); populateForms(); renderAllLists(); showToast('Data imported!'); } catch(err) { showToast('Invalid file', true); } }; reader.readAsText(file); }
+  function resetAllData() { if (confirm('Delete ALL data?')) { localStorage.removeItem('websiteData'); location.reload(); } }
+  function updateStats() { document.getElementById('statVisitors').innerText = '8,750'; document.getElementById('statPosts').innerText = websiteData.blogPosts.filter(p => p.status === 'published').length; document.getElementById('statPending').innerText = websiteData.guestSubmissions.filter(s => s.status === 'pending').length; }
+  function renderAllLists() { renderPosts(); renderPages(); renderSubmissions(); renderProjects(); renderServices(); renderResources(); renderNavigation(); renderFooterLinks(); updateStats(); }
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+  function showSection(sectionId) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(`${sectionId}-section`).classList.add('active'); document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active')); document.querySelector(`[data-section="${sectionId}"]`).classList.add('active'); document.getElementById('currentSection').innerText = sectionId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '); }
+  function showSectionAndOpenModal(section, type) { showSection(section); if (type === 'post') setTimeout(() => openPostModal(), 200); else if (type === 'page') setTimeout(() => openPageModal(), 200); else if (type === 'project') setTimeout(() => openProjectModal(), 200); }
+  function toggleTheme() { const html = document.documentElement; html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+
+  function initLogin() {
+    if (sessionStorage.getItem('cmsAuth') === 'true') {
+      document.getElementById('loginContainer').classList.add('hidden');
+      document.getElementById('dashboardContainer').style.display = 'flex';
+      loadAllData();
+      refreshPreview();
+      return;
+    }
+    document.getElementById('loginBtn').onclick = function() {
+      if (document.getElementById('adminPassword').value === 'admin2026') {
+        sessionStorage.setItem('cmsAuth', 'true');
+        document.getElementById('loginContainer').classList.add('hidden');
+        document.getElementById('dashboardContainer').style.display = 'flex';
+        loadAllData();
+        refreshPreview();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => document.getElementById('loginError').style.display = 'none', 3000);
+      }
+    };
+    document.getElementById('adminPassword').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('loginBtn').click(); });
+  }
+
+  document.querySelectorAll('.nav-item').forEach(nav => nav.addEventListener('click', () => showSection(nav.dataset.section)));
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('logoutBtn').addEventListener('click', () => { sessionStorage.clear(); location.reload(); });
+  document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+  window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; };
+
+  initLogin();
+</script>
+</body>
+</html>
