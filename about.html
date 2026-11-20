@@ -50,7 +50,7 @@
       padding: 0.5rem 0.9rem;
       border-radius: 100px;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
-      cursor: none;
+      cursor: pointer;
       align-self: flex-start;
     }
 
@@ -227,7 +227,6 @@
   <div class="orb orb-2" aria-hidden="true"></div>
   <div class="orb orb-3" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
-  <div id="cursor" aria-hidden="true"></div>
 
   <!-- Theme toggle (same as main site) -->
   <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
@@ -423,24 +422,6 @@
 
       if (btn) btn.addEventListener('click', () =>
         apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
-    })();
-
-    /* Cursor (desktop) */
-    (function() {
-      if (window.matchMedia('(hover: none)').matches) return;
-      const c = document.getElementById('cursor');
-      if (!c) return;
-      let r;
-      document.addEventListener('mousemove', (e) => {
-        cancelAnimationFrame(r);
-        r = requestAnimationFrame(() => { c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; });
-      });
-      document.querySelectorAll('a, button').forEach((el) => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('link-hover'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('link-hover'));
-      });
-      document.addEventListener('mouseleave', () => c.style.opacity = '0');
-      document.addEventListener('mouseenter', () => c.style.opacity = '1');
     })();
 
     /* Footer year */
