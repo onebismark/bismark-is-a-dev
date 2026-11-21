@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>[Post Title] — Bismark Agyapong • Markmix Digital</title>
+  <meta name="description" content="[SEO Description — replace with a 140-160 character summary of this article]" />
+  <meta name="author" content="Bismark Agyapong" />
+  <link rel="canonical" href="https://bismark.is-a.dev/sample-post.html" />
+  
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:title" content="[Post Title] — Markmix Digital" />
+  <meta property="og:description" content="[SEO Description — replace with article summary]" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile-pic.webp" />
+  <meta property="og:url" content="https://bismark.is-a.dev/sample-post.html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css?v=4" />
+  
+  <style>
+    :root {
+      --font-head: 'Syne', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Reading Progress Bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--gold);
+      z-index: 1000;
+      transition: width 0.1s linear;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0.5rem 0.9rem;
+      border-radius: 100px;
+      transition: all 0.2s;
+      align-self: flex-start;
+    }
+
+    .back-btn:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: var(--gold-soft);
+    }
+
+    .page-header {
+      width: 100%;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-soft);
+      border: 1px solid rgba(207,170,90,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-title span.accent { color: var(--gold); }
+
+    .page-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted2);
+      line-height: 1.45;
+    }
+
+    .page-meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.85rem;
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+    }
+
+    /* Table of Contents Box */
+    .toc-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.3rem;
+      width: 100%;
+    }
+
+    .toc-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .toc-list a {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .toc-list a:hover { color: var(--gold); }
+
+    /* Article Content */
+    .page-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .page-content section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .page-content h2 {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--gold);
+      align-self: flex-start;
+    }
+
+    .page-content h2 span {
+      color: var(--gold);
+      margin-right: 0.45rem;
+    }
+
+    .page-content h3 {
+      font-family: var(--font-head);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-top: 0.3rem;
+    }
+
+    .page-content p, .page-content li {
+      font-family: var(--font-head);
+      font-size: 0.94rem;
+      line-height: 1.75;
+      color: var(--muted2);
+    }
+
+    .page-content strong { color: var(--text); font-weight: 600; }
+
+    .page-content a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .page-content a:hover { border-bottom-color: var(--gold); }
+
+    .page-content ul, .page-content ol {
+      padding-left: 1.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .page-content li::marker { color: var(--gold); }
+
+    /* Demo Component: Callout Box */
+    .callout {
+      background: var(--gold-soft);
+      border: 1px solid rgba(207,170,90,0.2);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.4rem;
+    }
+
+    .callout p { color: var(--text); margin: 0; font-size: 0.9rem; }
+    .callout strong { color: var(--gold); }
+
+    /* Demo Component: Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted2);
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    /* Demo Component: Blockquote */
+    .quote {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+
+    .quote-author {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-style: normal;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    /* Demo Component: Code Snippet with Copy */
+    .code-block-wrap {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0.9rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted2);
+    }
+
+    .copy-btn {
+      background: var(--gold-soft);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.25rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      cursor: pointer;
+    }
+
+    .copy-btn:hover { background: var(--gold); color: var(--bg); }
+
+    .code-block {
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--text);
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0;
+    }
+
+    /* Demo Component: Comparison Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .article-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .article-table th, .article-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-table th {
+      background: var(--surface);
+      color: var(--gold);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .article-table td { color: var(--muted2); }
+
+    /* Demo Component: Media / Figure Placeholder */
+    .article-figure {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .figure-placeholder {
+      background: var(--surface2);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted2);
+      padding: 1rem;
+    }
+
+    .figure-caption {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+    }
+
+    /* Demo Component: Tags & Share Bar */
+    .article-footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .article-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+
+    .share-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.45rem 0.9rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      cursor: pointer;
+    }
+
+    .share-btn:hover { border-color: var(--gold); background: var(--gold-soft); }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+
+  <noscript>
+    <style>.back-btn { opacity: 1 !important; transform: translateY(0) !important; }</style>
+  </noscript>
+</head>
+<body>
+  <div id="readingProgress" class="reading-progress" aria-hidden="true"></div>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+
+    <!-- 1. Article Header -->
+    <header class="page-header">
+      <div class="page-tag"><span>📝</span> [Category / Topic]</div>
+      <h1 class="page-title">[Main Title] <span class="accent">[Highlighted Word]</span></h1>
+      <p class="page-subtitle">[Subtitle — concise one-line hook summarizing the post angle.]</p>
+      <div class="page-meta">
+        <span class="meta-pill"><span>📅</span> [Month Year]</span>
+        <span class="meta-pill"><span>⏱️</span> [X] min read</span>
+        <span class="meta-pill"><span>👤</span> Bismark Agyapong</span>
+      </div>
+    </header>
+
+    <!-- 2. Auto-Generated Table of Contents -->
+    <nav class="toc-box" aria-label="Table of contents">
+      <div class="toc-title">On This Page</div>
+      <ul id="tocList" class="toc-list"></ul>
+    </nav>
+
+    <!-- 3. Article Body Sections (Delete or duplicate any block you need) -->
+    <article class="page-content" id="articleBody">
+
+      <!-- Section: Intro + Callout -->
+      <section>
+        <p><strong>[Opening Hook]:</strong> Replace this paragraph with your introduction. Keep the first two sentences clear and direct so readers immediately know what problem or insight this post covers.</p>
+        
+        <div class="callout">
+          <p><strong>Key Highlight:</strong> Use callout boxes for core takeaways, rules of thumb, or important warnings.</p>
+        </div>
+      </section>
+
+      <!-- Section: Metrics / Stats Cards -->
+      <section>
+        <h2><span>01.</span> Key Metrics &amp; Benchmarks</h2>
+        <p>Use the stat grid below when presenting measurable numbers, performance improvements, or survey figures:</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">[Stat 1]</span>
+            <span class="stat-label">[Metric description]</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">[Stat 2]</span>
+            <span class="stat-label">[Metric description]</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">[Stat 3]</span>
+            <span class="stat-label">[Metric description]</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">[Stat 4]</span>
+            <span class="stat-label">[Metric description]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Subheadings, Lists & Quote -->
+      <section>
+        <h2><span>02.</span> Core Concepts &amp; Breakdown</h2>
+        <h3>[Subheading A]</h3>
+        <p>Body paragraph explaining the concept in plain, direct language with inline <strong>bold emphasis</strong> and <a href="index.html">internal or external links</a>.</p>
+
+        <blockquote class="quote">
+          “[Insert notable quote, principle, or excerpt here.]”
+          <div class="quote-author">— [Attribution / Source]</div>
+        </blockquote>
+
+        <h3>[Subheading B — Bullet &amp; Numbered Lists]</h3>
+        <ul>
+          <li><strong>Bullet Item One:</strong> Concise point with bold lead-in.</li>
+          <li><strong>Bullet Item Two:</strong> Supporting detail or trade-off.</li>
+        </ul>
+        <ol>
+          <li><strong>Step One:</strong> Sequential action or phase.</li>
+          <li><strong>Step Two:</strong> Follow-up action or verification step.</li>
+        </ol>
+      </section>
+
+      <!-- Section: Code Snippet Block -->
+      <section>
+        <h2><span>03.</span> Code Example</h2>
+        <p>Use this block whenever sharing HTML, CSS, JavaScript, or shell commands:</p>
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span>example.js</span>
+            <button type="button" class="copy-btn" data-copy-target="demoSnippet">Copy</button>
+          </div>
+          <pre id="demoSnippet" class="code-block">function greet(name = "Builder") {
+  return `Ready to ship, ${name}.`;
+}</pre>
+        </div>
+      </section>
+
+      <!-- Section: Comparison Table -->
+      <section>
+        <h2><span>04.</span> Comparison Table</h2>
+        <div class="table-wrap">
+          <table class="article-table">
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Strength</th>
+                <th>Trade-off</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[Option A]</strong></td>
+                <td>[Primary advantage]</td>
+                <td>[Constraint or cost]</td>
+              </tr>
+              <tr>
+                <td><strong>[Option B]</strong></td>
+                <td>[Primary advantage]</td>
+                <td>[Constraint or cost]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: Image / Figure Block -->
+      <section>
+        <h2><span>05.</span> Visual / Screenshot</h2>
+        <figure class="article-figure">
+          <div class="figure-placeholder">Replace this box with &lt;img src="..." alt="..." loading="lazy" /&gt;</div>
+          <figcaption class="figure-caption">[Figure caption describing the image or diagram]</figcaption>
+        </figure>
+      </section>
+
+      <!-- Section: Conclusion -->
+      <section>
+        <h2><span>06.</span> Closing Thoughts</h2>
+        <p>Wrap up with a concise final paragraph summarizing the main point and next step for the reader.</p>
+        <div class="callout">
+          <p><strong>Final Takeaway:</strong> [One-sentence summary of what the reader should do next.]</p>
+        </div>
+      </section>
+
+      <!-- Tags & Copy Link Bar -->
+      <div class="article-footer-bar">
+        <div class="tag-list">
+          <span class="article-tag">#[TagOne]</span>
+          <span class="article-tag">#[TagTwo]</span>
+          <span class="article-tag">#MarkmixDigital</span>
+        </div>
+        <button type="button" id="copyUrlBtn" class="share-btn">Copy Post Link</button>
+      </div>
+    </article>
+
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="colophon.html">Colophon &amp; Uses</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+
+  <!-- JSON-LD Article Schema (Update headline, description, datePublished, url per post) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "[Post Title]",
+    "description": "[SEO Description]",
+    "author": { "@type": "Person", "name": "Bismark Agyapong" },
+    "publisher": { "@type": "Organization", "name": "Markmix Digital" },
+    "datePublished": "2026-11-21"
+  }
+  </script>
+
+  <script src="script.js?v=4" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Reading progress bar
+      const progress = document.getElementById("readingProgress");
+      window.addEventListener("scroll", () => {
+        if (!progress) return;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+        progress.style.width = `${pct}%`;
+      }, { passive: true });
+
+      // 2. Auto-build Table of Contents from <h2> headings
+      const tocList = document.getElementById("tocList");
+      const headings = document.querySelectorAll("#articleBody h2");
+      if (tocList && headings.length) {
+        headings.forEach((h, i) => {
+          const id = h.id || `section-${i + 1}`;
+          h.id = id;
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = `#${id}`;
+          a.textContent = h.textContent.trim();
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+      }
+
+      // 3. Copy buttons for code blocks
+      document.querySelectorAll("[data-copy-target]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const target = document.getElementById(btn.dataset.copyTarget);
+          if (!target) return;
+          const original = btn.textContent;
+          try {
+            await navigator.clipboard.writeText(target.textContent);
+            btn.textContent = "Copied";
+          } catch {
+            btn.textContent = "Select manually";
+          }
+          setTimeout(() => { btn.textContent = original; }, 1800);
+        });
+      });
+
+      // 4. Copy canonical/current post URL button
+      const copyUrlBtn = document.getElementById("copyUrlBtn");
+      copyUrlBtn?.addEventListener("click", async () => {
+        const original = copyUrlBtn.textContent;
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          copyUrlBtn.textContent = "Link Copied";
+        } catch {
+          copyUrlBtn.textContent = "Copy Failed";
+        }
+        setTimeout(() => { copyUrlBtn.textContent = original; }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
