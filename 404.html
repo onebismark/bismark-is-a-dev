@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head><meta name="robots" content="noindex, nofollow"/>
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  
-  <title>Page Not Found — Lord Bismark • Markmix Studios</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Page Not Found — Lord Bismark • Markmix Digital</title>
   <meta name="description" content="The page you're looking for doesn't exist. Return to the homepage." />
   <meta name="author" content="Bismark Agyapong (Lord Bismark)" />
-  <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://bismark.is-a.dev/404.html" />
-  
+  <link rel="canonical" href="https://bismark.is-a.dev/404" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="404 — Page Not Found" />
   <meta property="og:description" content="The page you're looking for doesn't exist. Return to the homepage." />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" />
-  <meta property="og:url" content="https://bismark.is-a.dev/404.html" />
+  <meta property="og:url" content="https://bismark.is-a.dev/404" />
   <meta property="og:site_name" content="Lord Bismark" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#09090e" id="meta-theme-color" />
-  
+
   <!-- Icons -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E☥%3C/text%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E☥%3C/text%3E%3C/svg%3E" />
-  
+
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
-  
+
   <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css?v=4" />
-  
+  <link rel="stylesheet" href="/style.css?v=4" />
+
   <style>
     :root {
       --font-head: 'Syne', sans-serif;
       --font-serif: 'Instrument Serif', serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
-    
+
     .error-container {
       text-align: center;
       min-height: 70vh;
@@ -50,7 +49,7 @@
       align-items: center;
       animation: fadeUp 0.6s ease both;
     }
-    
+
     .error-code {
       font-family: var(--font-head);
       font-size: clamp(5rem, 15vw, 8rem);
@@ -60,14 +59,14 @@
       margin-bottom: 1rem;
       text-shadow: 0 0 20px var(--gold-glow);
     }
-    
+
     .error-icon {
       font-size: 4rem;
       margin-bottom: 1rem;
       display: inline-block;
       animation: float 3s ease-in-out infinite;
     }
-    
+
     .error-title {
       font-family: var(--font-head);
       font-size: clamp(1.5rem, 6vw, 2rem);
@@ -75,7 +74,7 @@
       color: var(--text);
       margin-bottom: 0.8rem;
     }
-    
+
     .error-message {
       font-family: var(--font-head);
       font-size: 1rem;
@@ -83,14 +82,14 @@
       margin-bottom: 2rem;
       max-width: 400px;
     }
-    
+
     .error-buttons {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
     }
-    
+
     .error-btn {
       display: inline-flex;
       align-items: center;
@@ -103,49 +102,49 @@
       border-radius: 100px;
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
     }
-    
+
     .error-btn-primary {
       background: var(--gold);
       color: var(--bg);
       border: none;
     }
-    
+
     .error-btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px var(--gold-glow);
     }
-    
+
     .error-btn-secondary {
       background: var(--surface);
       color: var(--text);
       border: 1px solid var(--border);
     }
-    
+
     .error-btn-secondary:hover {
       border-color: var(--gold);
       color: var(--gold);
       transform: translateY(-2px);
     }
-    
+
     .suggestions {
       margin-top: 3rem;
       text-align: center;
     }
-    
+
     .suggestions-title {
       font-family: var(--font-head);
       font-size: 0.9rem;
       color: var(--muted);
       margin-bottom: 1rem;
     }
-    
+
     .suggestions-links {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
     }
-    
+
     .suggestions-links a {
       font-family: var(--font-mono);
       font-size: 0.75rem;
@@ -153,11 +152,11 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    
+
     .suggestions-links a:hover {
       text-decoration: underline;
     }
-    
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -168,7 +167,7 @@
         transform: translateY(0);
       }
     }
-    
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
@@ -188,45 +187,70 @@
   </button>
 
   <main class="container">
-    <div class="error-container">
+    <div id="not-found-view" class="error-container">
       <div class="error-icon">🔍</div>
       <div class="error-code">404</div>
       <h1 class="error-title">Page Not Found</h1>
       <p class="error-message">The page you're looking for doesn't exist or has been moved.</p>
-      
+
       <div class="error-buttons">
-        <a href="index-blog.html" class="error-btn error-btn-primary">← Back to Blog</a>
-        <a href="index.html" class="error-btn error-btn-secondary">Link-in-Bio</a>
+        <a href="/index-blog" class="error-btn error-btn-primary">← Back to Blog</a>
+        <a href="/" class="error-btn error-btn-secondary">Link-in-Bio</a>
       </div>
-      
+
       <div class="suggestions">
         <div class="suggestions-title">Or try one of these pages:</div>
         <div class="suggestions-links">
-          <a href="about.html">About</a>
-          <a href="projects.html">Projects</a>
-          <a href="resources.html">Resources</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
+          <a href="/about">About</a>
+          <a href="/projects">Projects</a>
+          <a href="/resources">Resources</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
         </div>
       </div>
     </div>
 
+    <div id="unauthorized-view" class="error-container" hidden>
+      <div class="error-icon">🔒</div>
+      <div class="error-code">403</div>
+      <h1 class="error-title">Unauthorized Access</h1>
+      <p class="error-message">Direct access to <code>/404</code> is restricted.</p>
+
+      <div class="error-buttons">
+        <a href="/" class="error-btn error-btn-primary">Return Home</a>
+        <a href="/index-blog" class="error-btn error-btn-secondary">Back to Blog</a>
+      </div>
+    </div>
+
     <footer class="site-footer">
-      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Studios Limited</div>
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
       <p class="footer-copy">© <span id="year"></span> All rights reserved.</p>
       <nav class="footer-links" aria-label="Footer pages">
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="resources.html">Resources</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/resources">Resources</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
       </nav>
     </footer>
   </main>
 
-  <script src="script.js?v=4" defer></script>
+  <script src="/script.js?v=4" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const normalizedPath = window.location.pathname.replace(/\/+$/, "") || "/";
+      const isDirect404 = normalizedPath === "/404" || normalizedPath === "/404.html";
+      const notFoundEl = document.getElementById("not-found-view");
+      const unauthEl = document.getElementById("unauthorized-view");
+
+      if (isDirect404 && notFoundEl && unauthEl) {
+        notFoundEl.hidden = true;
+        unauthEl.hidden = false;
+        document.title = "403 — Unauthorized Access • Markmix Digital";
+      }
+    });
   </script>
 </body>
 </html>
