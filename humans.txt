@@ -1,0 +1,14 @@
+/* TEAM */
+Founder & Developer: Bismark Agyapong (Lord Bismark)
+Studio: Markmix Digital (2023 - present)
+Site: https://lordbismark.vercel.app
+GitHub: https://github.com/onebismark
+X: https://x.com/onebismark_
+LinkedIn: https://www.linkedin.com/in/bismark-agyapong
+Location: Kumasi, Ashanti Region, Ghana
+
+/* SITE */
+Last update: 2026/11/21
+Language: English
+Standards: HTML5, CSS3, JavaScript (ES6+)
+Software: Fedora Linux, ChromeOS, Adobe Photoshop
