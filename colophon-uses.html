@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Colophon & Uses — Bismark Agyapong • Markmix Digital</title>
+  <meta name="description" content="How these pages are built alongside the hardware, operating systems, editors, and security tools used daily." />
+  <meta name="author" content="Bismark Agyapong" />
+  <link rel="canonical" href="https://bismark.is-a.dev/colophon.html" />
+  <meta property="og:title" content="Colophon & Uses — Markmix Digital" />
+  <meta property="og:description" content="Site build standards plus daily hardware, OS, code, design, and security tools." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" />
+  <meta property="og:url" content="https://bismark.is-a.dev/colophon.html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    :root { --font-head: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'JetBrains Mono', monospace; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; border: 1px solid var(--border); background: var(--surface); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-soft); }
+    .page-header { width: 100%; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .page-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 1rem; }
+    .page-title { font-family: var(--font-head); font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
+    .page-title span.accent { color: var(--gold); }
+    .page-subtitle { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--muted2); }
+    .page-content { width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .page-content section { display: flex; flex-direction: column; gap: 0.85rem; }
+    .page-content h2 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 0.8rem; }
+    .page-content p, .page-content li { font-family: var(--font-head); font-size: 0.9rem; line-height: 1.7; color: var(--muted2); }
+    .page-content strong { color: var(--text); }
+    .page-content ul { padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+    .card-kicker { font-family: var(--font-mono); font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; }
+    .card-title { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--text); margin: 0.3rem 0; }
+    .card-desc { font-family: var(--font-head); font-size: 0.8rem; color: var(--muted2); line-height: 1.5; }
+    .callout { background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <header class="page-header">
+      <div class="page-tag"><span>🛠️</span> Colophon & Uses</div>
+      <h1 class="page-title">Colophon &amp; <span class="accent">Uses</span></h1>
+      <p class="page-subtitle">How these pages are built alongside the hardware, OS environments, and tools used daily.</p>
+    </header>
+    <div class="page-content">
+      <section>
+        <h2>Site Stack &amp; Delivery</h2>
+        <div class="card-grid">
+          <div class="info-card">
+            <div class="card-kicker">Markup &amp; Style</div>
+            <div class="card-title">HTML5 &amp; CSS3</div>
+            <div class="card-desc">Semantic structure, CSS custom properties, responsive layouts, and dark/light theme support.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Scripting</div>
+            <div class="card-title">Vanilla JavaScript</div>
+            <div class="card-desc">Lightweight client-side interactions with zero heavy runtime dependencies.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Typography</div>
+            <div class="card-title">Web Fonts</div>
+            <div class="card-desc">Syne, Instrument Serif, and JetBrains Mono loaded with font-display swap.</div>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Lean payload:</strong> Static HTML, CSS, and JS keep initial rendering fast on constrained connections.</li>
+          <li><strong>Versioned assets:</strong> Stylesheets and scripts use query versioning (`?v=4`) for cache predictability.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Hardware &amp; Connectivity</h2>
+        <div class="card-grid">
+          <div class="info-card">
+            <div class="card-kicker">Laptops</div>
+            <div class="card-title">Dell &amp; Lenovo Chromebook</div>
+            <div class="card-desc">Everyday portable machines for web development, browsing, and coursework.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Phones</div>
+            <div class="card-title">Samsung Galaxy A56 &amp; iPhone X</div>
+            <div class="card-desc">Mobile viewport checks, quick captures, and everyday mobile workflows.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Network</div>
+            <div class="card-title">Portable MiFi Router</div>
+            <div class="card-desc">Flexible mobile data connectivity across campus and work locations.</div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>OS, Design &amp; Security</h2>
+        <div class="card-grid">
+          <div class="info-card">
+            <div class="card-kicker">Operating Systems</div>
+            <div class="card-title">Fedora Linux, ChromeOS &amp; Windows</div>
+            <div class="card-desc">Linux for development, ChromeOS for lightweight browsing, Windows for compatibility.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Visual &amp; Photo</div>
+            <div class="card-title">Adobe Photoshop</div>
+            <div class="card-desc">Portrait edits, monochrome work, flyers, and visual layouts.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-kicker">Vault &amp; Backup</div>
+            <div class="card-title">KeePass + Strongbox &amp; MEGA</div>
+            <div class="card-desc">Encrypted `.kdbx` credentials across devices with off-device backup on MEGA Drive.</div>
+          </div>
+        </div>
+        <div class="callout">
+          <p><strong>Principle:</strong> Keep interfaces fast and readable while relying on practical tools that match real workflows.</p>
+        </div>
+      </section>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="colophon.html">Colophon &amp; Uses</a>
+        <a href="now.html">Now</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="script.js?v=4" defer></script>
+</body>
+</html>
