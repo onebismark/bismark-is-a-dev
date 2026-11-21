@@ -1,0 +1,5 @@
+# robots.txt for Markmix Digital (2023 - present)
+User-agent: *
+Allow: /
+Sitemap: https://lordbismark.vercel.app/sitemap.xml
+Disallow: /cdn-cgi/
