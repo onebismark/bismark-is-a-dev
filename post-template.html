@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>[Post Title] — Bismark Agyapong • Markmix Digital</title>
+  <meta name="description" content="[Short post summary — 140-160 characters]" />
+  <meta name="author" content="Bismark Agyapong" />
+  <link rel="canonical" href="https://bismark.is-a.dev/[post-slug].html" />
+  <meta property="og:title" content="[Post Title] — Markmix Digital" />
+  <meta property="og:description" content="[Short post summary]" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile-pic.webp" />
+  <meta property="og:url" content="https://bismark.is-a.dev/[post-slug].html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    :root { --font-head: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'JetBrains Mono', monospace; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; border: 1px solid var(--border); background: var(--surface); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-soft); }
+    .page-header { width: 100%; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+    .page-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 0.85rem; }
+    .page-title { font-family: var(--font-head); font-size: clamp(1.85rem, 7vw, 2.9rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.5rem; }
+    .page-title span.accent { color: var(--gold); }
+    .page-subtitle { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--muted2); }
+    .page-meta { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); margin-top: 0.75rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .meta-pill { background: var(--surface); border: 1px solid var(--border); padding: 0.25rem 0.65rem; border-radius: 100px; }
+    .post-body { width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+    .post-body h2 { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    .post-body p, .post-body li { font-family: var(--font-head); font-size: 0.92rem; line-height: 1.75; color: var(--muted2); }
+    .post-body strong { color: var(--text); }
+    .post-body a { color: var(--gold); text-decoration: none; }
+    .post-body ul { padding-left: 1.35rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .callout { background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 0.95rem 1.15rem; }
+    .callout p { color: var(--text); margin: 0; font-size: 0.88rem; }
+    .post-footer-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .post-tag { font-family: var(--font-mono); font-size: 0.64rem; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); padding: 0.25rem 0.6rem; border-radius: 100px; }
+    .share-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 0.4rem 0.85rem; font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); cursor: pointer; }
+    .share-btn:hover { border-color: var(--gold); background: var(--gold-soft); }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <header class="page-header">
+      <div class="page-tag"><span>📝</span> [Topic]</div>
+      <h1 class="page-title">[Short Post Title] <span class="accent">[Accent]</span></h1>
+      <p class="page-subtitle">[One-line summary of the post.]</p>
+      <div class="page-meta">
+        <span class="meta-pill">Nov 2026</span>
+        <span class="meta-pill">3 min read</span>
+        <span class="meta-pill">Bismark Agyapong</span>
+      </div>
+    </header>
+    <article class="post-body">
+      <section>
+        <p><strong>[Lead]:</strong> Start straight with the core idea or observation in two to three crisp sentences.</p>
+      </section>
+      <section>
+        <h2>[Section Heading]</h2>
+        <p>[Short explanation of what matters and why.]</p>
+        <ul>
+          <li><strong>[Key point]:</strong> [Practical detail or trade-off.]</li>
+          <li><strong>[Key point]:</strong> [Practical detail or trade-off.]</li>
+        </ul>
+      </section>
+      <div class="callout">
+        <p><strong>Takeaway:</strong> [One clear line to wrap up the post.]</p>
+      </div>
+      <div class="post-footer-bar">
+        <div class="tag-list">
+          <span class="post-tag">#[Tag1]</span>
+          <span class="post-tag">#[Tag2]</span>
+        </div>
+        <button type="button" id="copyUrlBtn" class="share-btn">Copy Link</button>
+      </div>
+    </article>
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="colophon.html">Colophon &amp; Uses</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="script.js?v=4" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("copyUrlBtn");
+      btn?.addEventListener("click", async () => {
+        const original = btn.textContent;
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          btn.textContent = "Copied";
+        } catch {
+          btn.textContent = "Copy Failed";
+        }
+        setTimeout(() => { btn.textContent = original; }, 1600);
+      });
+    });
+  </script>
+</body>
+</html>
