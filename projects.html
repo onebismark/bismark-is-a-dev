@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Projects — Markmix Digital</title>
+  <meta name="description" content="Selected web utilities, responsive builds, and visual/photography work by Markmix Digital (2023 - present)." />
+  <meta name="author" content="Markmix Digital" />
+  <link rel="canonical" href="https://bismark.is-a.dev/projects.html" />
+  <meta property="og:title" content="Projects — Markmix Digital" />
+  <meta property="og:description" content="Selected web utilities, responsive builds, and visual/photography work by Markmix Digital (2023 - present)." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/onebismark/files@refs/heads/main/profile.avif" />
+  <meta property="og:url" content="https://bismark.is-a.dev/projects.html" />
+  <meta property="og:site_name" content="Markmix Digital" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#09090e" id="meta-theme-color" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23cfaa5a'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='%2309090e' font-family='monospace'%3E%E2%AC%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    :root { --font-head: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'JetBrains Mono', monospace; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; border: 1px solid var(--border); background: var(--surface); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-soft); }
+    .page-header { width: 100%; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .page-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border: 1px solid rgba(207,170,90,0.2); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 1rem; }
+    .page-title { font-family: var(--font-head); font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
+    .page-title span.accent { color: var(--gold); }
+    .page-subtitle { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--muted2); }
+    .projects-grid { width: 100%; display: flex; flex-direction: column; gap: 1.4rem; }
+    .category-title { font-family: var(--font-head); font-size: 1.1rem; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.8rem; padding-bottom: 0.45rem; border-bottom: 1px solid var(--border); }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .project-title { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .project-category { font-family: var(--font-mono); font-size: 0.65rem; background: var(--gold-soft); color: var(--gold); padding: 0.2rem 0.65rem; border-radius: 20px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.8rem; }
+    .tech-tag { font-family: var(--font-mono); font-size: 0.62rem; background: var(--surface2); border: 1px solid var(--border); padding: 0.2rem 0.55rem; border-radius: 12px; color: var(--muted2); }
+    .project-description { font-family: var(--font-head); font-size: 0.88rem; line-height: 1.65; color: var(--muted2); margin-bottom: 0.85rem; }
+    .project-link { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1" aria-hidden="true"></div>
+  <div class="ambient ambient-2" aria-hidden="true"></div>
+  <div class="ambient ambient-3" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <header class="page-header">
+      <div class="page-tag"><span>💼</span> Markmix Digital (2023 - present)</div>
+      <h1 class="page-title">Selected <span class="accent">Projects</span></h1>
+      <p class="page-subtitle">Browser utilities, web builds, and visual/photography work.</p>
+    </header>
+    <div class="projects-grid">
+      <section>
+        <h2 class="category-title">Web & Browser Utilities</h2>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">Client-Side Web Utilities Suite</h3>
+              <span class="project-category">Markmix Digital</span>
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">HTML5</span>
+              <span class="tech-tag">CSS3</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+            <p class="project-description">Browser-based utilities including ZIP Creator & Extractor, QR Code Generator, Age Calculator, and File Converter built for quick local use.</p>
+            <a href="https://github.com/onebismark" target="_blank" rel="noopener noreferrer" class="project-link">GitHub (onebismark) →</a>
+          </div>
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">Responsive Web & Profile Pages</h3>
+              <span class="project-category">Web</span>
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">HTML5</span>
+              <span class="tech-tag">CSS3</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+            <p class="project-description">Clean, responsive web pages with theme toggling, accessible navigation, and low-overhead static delivery.</p>
+            <a href="https://bismark.is-a.dev" target="_blank" rel="noopener noreferrer" class="project-link">bismark.is-a.dev →</a>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2 class="category-title">Visual & Photography</h2>
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Monochrome, Portrait & Flyer Work</h3>
+            <span class="project-category">Visuals</span>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Photoshop</span>
+            <span class="tech-tag">Portraits</span>
+            <span class="tech-tag">Print & Flyers</span>
+          </div>
+          <p class="project-description">Portrait edits, monochrome film-grain silhouettes, flyers, and print-ready layouts crafted for clear visual hierarchy.</p>
+          <a href="contact-company.html" class="project-link">Inquire about work →</a>
+        </div>
+      </section>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="footer-mark">⬡</span> Markmix Digital</div>
+      <p class="footer-copy">© <span id="year">2026</span> Markmix Digital (2023 - present). All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer pages">
+        <a href="about-company.html">About Markmix Digital</a>
+        <a href="projects.html">Projects</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="script.js?v=4" defer></script>
+</body>
+</html>
